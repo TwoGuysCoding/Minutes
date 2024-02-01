@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NAudio.Wave;
@@ -31,7 +33,12 @@ namespace Minutes
         /// The text displayed on the record button.
         /// </summary>
         [ObservableProperty]
-        private string _recordButtonText = "Start Recording";
+        private string _recordButtonText = "Start";
+        [ObservableProperty]
+        private string _stopWatchText = "00:00:00";
+
+        private readonly Stopwatch _stopwatch = new();
+        private readonly DispatcherTimer _dispatcher = new();
 
         /// <summary>
         /// Indicates whether the application is currently recording audio.
@@ -44,6 +51,9 @@ namespace Minutes
         public MainViewModel()
         {
             _audioRecorder.InitializeRecorder(RecordingHandler);
+            _dispatcher.Tick += (s, a) => UpdateStopWatch();
+            _dispatcher.Interval = new TimeSpan(0, 0, 0, 0, 1000); // Update every second
+
         }
 
         /// <summary>
@@ -63,8 +73,10 @@ namespace Minutes
                     if (!result) return;
 
                     _audioRecorder.StartRecording();
-                    RecordButtonText = "Stop Recording";
+                    RecordButtonText = "Stop";
                     _isRecording = true;
+                    _stopwatch.Start();
+                    _dispatcher.Start();
                 }
             }
             else    // If recording, stop recording
@@ -76,8 +88,10 @@ namespace Minutes
                     if (!result) return;
 
                     _audioRecorder.StopRecording();
-                    RecordButtonText = "Start Recording";
+                    RecordButtonText = "Start";
                     _isRecording = false;
+                    _stopwatch.Stop();
+                    _dispatcher.Stop();
                 }
 
             }
@@ -93,6 +107,11 @@ namespace Minutes
             // Send the audio data to the server
             if (!_websocketManager.IsOpen()) return;
             await _websocketManager.SendDataAsync(e.Buffer);
+        }
+
+        private void UpdateStopWatch()
+        {
+            StopWatchText = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
         }
     }
 }

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Minutes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Antipasto">pack://application:,,,/Fonts/#Antipasto Pro</FontFamily>
     </Application.Resources>
 </Application>

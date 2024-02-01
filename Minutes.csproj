@@ -9,7 +9,46 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\futur.ttf" />
+    <None Remove="Fonts\AntipastoPro-Bold_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-DemiBold_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-ExtraBold_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-Extralight_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-Hairline_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-Light_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-Medium_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro-Thin_trial 2.ttf" />
+    <None Remove="Fonts\AntipastoPro-Thin_trial.ttf" />
+    <None Remove="Fonts\AntipastoPro_trial.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\AntipastoPro-Bold_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-DemiBold_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-ExtraBold_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-Extralight_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-Hairline_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-Light_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-Medium_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro-Thin_trial 2.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\AntipastoPro_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\futur.ttf" />
+    <Resource Include="Fonts\AntipastoPro-Thin_trial.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
