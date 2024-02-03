@@ -22,12 +22,12 @@ namespace Minutes
         /// <summary>
         /// The WebSocket manager used for managing WebSocket connections.
         /// </summary>
-        private readonly WebsocketManager _websocketManager = new("ws://localhost:8000/ws/test");
+        private readonly WebsocketManager _websocketManager = new("ws://localhost:8000/ws/transcribe/vosk/en");
 
         /// <summary>
         /// The audio recorder used for recording audio.
         /// </summary>
-        private readonly AudioRecorder _audioRecorder = new(44100, 16, 2);
+        private readonly AudioRecorder _audioRecorder = new(16000, 16, 1);
 
         /// <summary>
         /// The text displayed on the record button.
@@ -52,7 +52,7 @@ namespace Minutes
         {
             _audioRecorder.InitializeRecorder(RecordingHandler);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
-            _dispatcher.Interval = new TimeSpan(0, 0, 0, 0, 1000); // Update every second
+            _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
 
         }
 
@@ -106,7 +106,9 @@ namespace Minutes
         {
             // Send the audio data to the server
             if (!_websocketManager.IsOpen()) return;
-            await _websocketManager.SendDataAsync(e.Buffer);
+            var buffer = new byte[e.BytesRecorded];
+            Buffer.BlockCopy(e.Buffer, 0, buffer, 0, e.BytesRecorded);
+            await _websocketManager.SendDataAsync(buffer);
         }
 
         private void UpdateStopWatch()
