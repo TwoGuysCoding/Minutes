@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:Minutes"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600">
     <Window.Resources>
@@ -17,6 +19,11 @@
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeMainViewModelCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.Background>
         <SolidColorBrush Color="{StaticResource WindowBackgroundColor}"/>
     </Window.Background>
@@ -26,9 +33,13 @@
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
         <Border Margin="40 40 40 0" BorderBrush="{StaticResource LightGray}" BorderThickness="4" CornerRadius="10" Padding="20">
-            <TextBlock FontSize="30" FontFamily="{StaticResource Antipasto}" FontWeight="Regular">
-                The text the text will be displayed here
-            </TextBlock>
+            <ScrollViewer>
+                <ScrollViewer.Resources>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBar}" />
+                </ScrollViewer.Resources>
+                <TextBlock FontSize="30" FontFamily="{StaticResource Antipasto}" FontWeight="Regular" 
+                           Text="{Binding TranscriptionText}" TextWrapping="WrapWithOverflow"/>
+            </ScrollViewer>
         </Border>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Grid.Row="1" Width="100" Height="100"  FontSize="30"
