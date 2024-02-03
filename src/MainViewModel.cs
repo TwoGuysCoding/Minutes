@@ -22,7 +22,7 @@ namespace Minutes
         /// <summary>
         /// The WebSocket manager used for managing WebSocket connections.
         /// </summary>
-        private readonly WebsocketManager _websocketManager = new("ws://localhost:8000/ws/transcribe/vosk/en");
+        private readonly WebsocketManager _websocketManager;
 
         /// <summary>
         /// The audio recorder used for recording audio.
@@ -36,6 +36,8 @@ namespace Minutes
         private string _recordButtonText = "Start";
         [ObservableProperty]
         private string _stopWatchText = "00:00:00";
+        [ObservableProperty]
+        private string _transcriptionText = "";
 
         private readonly Stopwatch _stopwatch = new();
         private readonly DispatcherTimer _dispatcher = new();
@@ -50,49 +52,42 @@ namespace Minutes
         /// </summary>
         public MainViewModel()
         {
+            _websocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
             _audioRecorder.InitializeRecorder(RecordingHandler);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
-
         }
+
+        [RelayCommand]
+        private async Task InitializeMainViewModel()
+        {
+            await _websocketManager.OpenConnectionAsync();
+        }
+        
 
         /// <summary>
         /// A command that handles recording audio. If it is not recording it opens the WebSocket connection and starts recording.
         /// If it is not recording, it closes the WebSocket connection and stops recording.
         /// </summary>
         [RelayCommand]
-        private async Task RecordAsync()
+        private void Record()
         {
             // If not recording, start recording
             if (!_isRecording)
             {
-                // If the WebSocket is not open, open it
-                if (!_websocketManager.IsOpen())
-                {
-                    var result = await _websocketManager.OpenConnectionAsync();
-                    if (!result) return;
-
-                    _audioRecorder.StartRecording();
-                    RecordButtonText = "Stop";
-                    _isRecording = true;
-                    _stopwatch.Start();
-                    _dispatcher.Start();
-                }
+                _audioRecorder.StartRecording();
+                RecordButtonText = "Stop";
+                _isRecording = true;
+                _stopwatch.Start();
+                _dispatcher.Start();
             }
             else    // If recording, stop recording
             {
-                // If the WebSocket is open, close it
-                if (_websocketManager.IsOpen())
-                {
-                    var result = await _websocketManager.CloseConnectionAsync();
-                    if (!result) return;
-
-                    _audioRecorder.StopRecording();
-                    RecordButtonText = "Start";
-                    _isRecording = false;
-                    _stopwatch.Stop();
-                    _dispatcher.Stop();
-                }
+                _audioRecorder.StopRecording();
+                RecordButtonText = "Start";
+                _isRecording = false;
+                _stopwatch.Stop();
+                _dispatcher.Stop();
 
             }
         }
@@ -114,6 +109,12 @@ namespace Minutes
         private void UpdateStopWatch()
         {
             StopWatchText = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
+        }
+
+        private void DisplayTranscriptionText(string audioTranscript)
+        {
+            TranscriptionText += audioTranscript;
+            TranscriptionText += " ";
         }
     }
 }

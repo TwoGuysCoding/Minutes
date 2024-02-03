@@ -16,10 +16,11 @@ namespace Minutes
     /// To close the connection, call the CloseConnectionAsync method.
     /// </summary>
     /// <param name="serverUri">The server uri you want to connect to</param>
-    internal class WebsocketManager(string serverUri)
+    internal class WebsocketManager(string serverUri, Action<string> receiveAction)
     {
         private ClientWebSocket? _clientWebSocket;  // the WebSocket client
         private readonly Uri _serverUri = new(serverUri);   // the server uri
+        private readonly Action<string> _receiveAction = receiveAction;
 
         /// <summary>
         /// Tries to open a connection to the server.
@@ -36,7 +37,7 @@ namespace Minutes
                 await _clientWebSocket.ConnectAsync(_serverUri, CancellationToken.None);
                 Debug.WriteLine("Connected to WebSocket server");
 
-                await Task.Run(ReceiveMessages);
+                await Task.Run(() => ReceiveMessages(_receiveAction));
                 return true;
             }
             catch (Exception e)
@@ -49,7 +50,7 @@ namespace Minutes
         /// <summary>
         /// Receives messages from the server. For now, it just prints them to the console.
         /// </summary>
-        private async void ReceiveMessages()
+        private async void ReceiveMessages(Action<string> receiveAction)
         {
             // Set the size of the buffer for receiving messages
             var buffer = new byte[1024];
@@ -63,10 +64,10 @@ namespace Minutes
 
                     // Handle the received message (e.g., update UI or process audio). For now, just print it to the console
                     // TODO: Handle the received message
-                    if (result.MessageType == WebSocketMessageType.Text)
-                    {
-                        Debug.WriteLine($"Server response: {Encoding.UTF8.GetString(buffer, 0, result.Count)}");
-                    }
+                    if (result.MessageType != WebSocketMessageType.Text) continue;
+
+                    Debug.WriteLine($"Server response: {Encoding.UTF8.GetString(buffer, 0, result.Count)}");
+                    receiveAction.Invoke(Encoding.UTF8.GetString(buffer, 0, result.Count));
                 }
             }
             catch (Exception e)
