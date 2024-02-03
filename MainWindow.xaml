@@ -35,11 +35,12 @@
                     Style="{StaticResource RoundedButton}" 
                     Command="{Binding RecordCommand}" 
                     Content="{Binding RecordButtonText}"
-                    FontFamily="{StaticResource Antipasto}"
+                    FontFamily="{StaticResource Antipasto}" 
                     FontWeight="Light"/>
             <TextBlock Width="300" Margin="10" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center"
                        TextAlignment="Center"
                        Text="{Binding StopWatchText}"/>
+            <CheckBox Style="{StaticResource AnimatedToggleButton}"/>
         </StackPanel>
 
     </Grid>

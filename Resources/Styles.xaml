@@ -50,4 +50,42 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="AnimatedToggleButton" TargetType="CheckBox">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border Background="{StaticResource LightGray}" CornerRadius="25" BorderBrush="{StaticResource DarkGray}" BorderThickness="2">
+                        <Grid>
+                            <Rectangle x:Name="SwitchBackground" Fill="{StaticResource DarkGray}" RadiusX="25" RadiusY="25" />
+                            <Grid>
+                                <Rectangle x:Name="SwitchThumb" Fill="{StaticResource White}" Width="40" Height="40" RadiusX="23" RadiusY="23" HorizontalAlignment="Left" Margin="2" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="SwitchBackground" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource OrangeColor}" Duration="0:0:0.3" />
+                                        <ThicknessAnimation Storyboard.TargetName="SwitchThumb" Storyboard.TargetProperty="Margin" To="52,2,0,2" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="SwitchBackground" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource DarkGrayColor}" Duration="0:0:0.3" />
+                                        <ThicknessAnimation Storyboard.TargetName="SwitchThumb" Storyboard.TargetProperty="Margin" To="2,2,0,2" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
