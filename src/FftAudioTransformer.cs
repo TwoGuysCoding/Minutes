@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using Brushes = System.Windows.Media.Brushes;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-using MathNet.Numerics;
 using MathNet.Numerics.IntegralTransforms;
-using MathNet.Numerics.Statistics;
-using System.Windows.Media.Animation;
 
-namespace Minutes.src
+namespace Minutes
 {
     internal static class FftAudioTransformer
     {
