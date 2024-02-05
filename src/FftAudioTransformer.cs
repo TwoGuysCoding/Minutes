@@ -107,7 +107,6 @@ namespace Minutes
         private static bool IsSilence(double[] audioLevels, float threshold)
         {
             var rms = CalculateRms(audioLevels);
-            Debug.WriteLine(rms);
             return rms < threshold;
         }
     }

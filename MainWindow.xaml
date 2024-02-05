@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Minutes"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="MainWindow" Height="900" Width="1600" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -47,7 +47,7 @@
                     Command="{Binding RecordCommand}" 
                     Content="{Binding RecordButtonText}"
                     FontFamily="{StaticResource Antipasto}" 
-                    FontWeight="Light"/>
+                    FontWeight="Light" />
             <local:AudioVisualizerControl AudioLevelsProperty="{Binding AudioLevels}" Width="400"  MaxHeightValue="120" BarWidth="4" BarMargin="1"/>
             <CheckBox Style="{StaticResource AnimatedToggleButton}"/>
         </StackPanel>

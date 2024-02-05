@@ -29,6 +29,7 @@ namespace Minutes
         /// </summary>
         private readonly AudioRecorder _audioRecorder = new(16000, 16, 1);
 
+
         /// <summary>
         /// The text displayed on the record button.
         /// </summary>
