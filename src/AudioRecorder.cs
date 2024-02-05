@@ -18,6 +18,7 @@ namespace Minutes
     internal class AudioRecorder
     {
         private readonly WasapiLoopbackCapture _capture = new(); // the audio capture device
+        private WaveFileWriter _writer; // the writer that will write the audio to a file
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AudioRecorder"/> class with specified sample rate, bits, and channels.
@@ -29,6 +30,7 @@ namespace Minutes
         {
             var waveFormat = new WaveFormat(sampleRate, bits, channels);
             _capture.WaveFormat = waveFormat;
+            _writer = new WaveFileWriter("output.wav", waveFormat);
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Minutes.src;
 using NAudio.Wave;
 
 namespace Minutes
@@ -39,8 +40,12 @@ namespace Minutes
         [ObservableProperty]
         private string _transcriptionText = "";
 
+        [ObservableProperty]
+        private double[] _audioLevels;
+
         private readonly Stopwatch _stopwatch = new();
         private readonly DispatcherTimer _dispatcher = new();
+
 
         /// <summary>
         /// Indicates whether the application is currently recording audio.
@@ -103,6 +108,8 @@ namespace Minutes
             if (!_websocketManager.IsOpen()) return;
             var buffer = new byte[e.BytesRecorded];
             Buffer.BlockCopy(e.Buffer, 0, buffer, 0, e.BytesRecorded);
+            var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 120, 0.16f);
+            AudioLevels = audioLevels;
             await _websocketManager.SendDataAsync(buffer);
         }
 

@@ -48,9 +48,7 @@
                     Content="{Binding RecordButtonText}"
                     FontFamily="{StaticResource Antipasto}" 
                     FontWeight="Light"/>
-            <TextBlock Width="300" Margin="10" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Text="{Binding StopWatchText}"/>
+            <local:AudioVisualizerControl AudioLevelsProperty="{Binding AudioLevels}" Width="400"  MaxHeightValue="120" BarWidth="4" BarMargin="1"/>
             <CheckBox Style="{StaticResource AnimatedToggleButton}"/>
         </StackPanel>
 
