@@ -4,37 +4,67 @@ Provides production grade front-end dedicated for seamless integration with the 
 
 # Systems
 An overview of all systems, their interactions and usage.
-## WebsocketManager class
-This class is used to create and manage websocket connections. It is used to connect to 
-the Speech2TextAPI and send audio data to it. It also receives the transcribed text from 
-the API and sends it to the MainWindow class. The WebsocketManager class is used by the 
-MainWindow class to manage the websocket connection.
-### Usage
-To use it properly first you need to pass the websocket URL to the constructor:
-```csharp
-// Create a new WebsocketManager object and connect to the websocket server at the given URL
-WebsocketManager websocketManager = new WebsocketManager("ws://localhost:8080");
-```
-Then you need to call the Connect method to connect to the websocket server:
-```csharp
-// Connect to the websocket server
-await websocketManager.OpenConnectionAsync();
-```
-The function returns Task<bool> which is true if the connection was successful and false if it was not.
-The Connect method is asynchronous so you need to use the await keyword to call it.
-After establishing the connection it calls RecieveMessanges method which listens for incoming messages from the server.
-RecieveMessages take is Action<string> which is a function which defines what to do with the incoming message.
-If you want to send data to the server you can use the SendData method:
-```csharp
-// Send data to the server
-await websocketManager.SendDataAsync(data);
-```
-Data is in a byte format.
+# WebsocketManager Class
 
-If you want to close the connection you can use the CloseConnection method:
-```csharp
-// Close the connection
-await websocketManager.CloseConnectionAsync();
-```
+A class that handles the WebSocket connection to the server. It takes in a server URI to which you can connect calling the `OpenConnectionAsync` method. After the connection is open, you can receive messages from the server. To send data to the server, call the `SendDataAsync` method. To close the connection, call the `CloseConnectionAsync` method.
 
-All of those function have try-catch blocks to handle exceptions. If an exception occurs it will be logged to the console.
+## Constructors
+
+### `WebsocketManager(string serverUri, Action<string> receiveAction)`
+
+Initializes a new instance of the `WebsocketManager` class.
+
+- `serverUri`: The server URI you want to connect to.
+- `receiveAction`: An action to handle received messages from the server.
+
+## Methods
+
+### `Task<bool> OpenConnectionAsync()`
+
+Tries to open a connection to the server. If the connection is open, it starts receiving messages from the server. If it fails to open the connection, it returns `false`.
+
+### `Task SendDataAsync(byte[] data)`
+
+Tries to send data to the server as a binary message. If it fails, it throws an exception.
+
+- `data`: Data to be sent in the form of a binary message.
+
+### `Task<bool> CloseConnectionAsync()`
+
+Tries to close the connection to the server. If it fails, it returns `false`.
+
+### `bool IsOpen()`
+
+Returns a boolean indicating if the WebSocket connection is open.
+
+
+
+# AudioRecorder Class
+
+A class that handles recording audio. To use it properly, you must first initialize it with the `InitializeRecorder` method, passing in a function that will handle the recording. Then, you can start recording with the `StartRecording` method, and stop recording with the `StopRecording` method.
+
+## Constructors
+
+### `AudioRecorder(int sampleRate, int bits, int channels)`
+
+Initializes a new instance of the `AudioRecorder` class with specified sample rate, bits, and channels.
+
+- `sampleRate`: The sample rate of the audio.
+- `bits`: The number of bits per sample.
+- `channels`: The number of audio channels.
+
+## Methods
+
+### `void InitializeRecorder(Action<object?, WaveInEventArgs> recordingFunction)`
+
+Initializes the recorder with a function that will handle the recording and the recording stopped event which will dispose of the recorder.
+
+- `recordingFunction`: A function that will handle the recording.
+
+### `void StartRecording()`
+
+Starts the audio recording.
+
+### `void StopRecording()`
+
+Stops the audio recording.
