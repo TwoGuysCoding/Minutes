@@ -20,7 +20,6 @@ namespace Minutes
     {
         private ClientWebSocket? _clientWebSocket;  // the WebSocket client
         private readonly Uri _serverUri = new(serverUri);   // the server uri
-        private readonly Action<string> _receiveAction = receiveAction;
 
         /// <summary>
         /// Tries to open a connection to the server.
@@ -37,7 +36,7 @@ namespace Minutes
                 await _clientWebSocket.ConnectAsync(_serverUri, CancellationToken.None);
                 Debug.WriteLine("Connected to WebSocket server");
 
-                await Task.Run(() => ReceiveMessages(_receiveAction));
+                await Task.Run(() => ReceiveMessages(receiveAction));
                 return true;
             }
             catch (Exception e)
@@ -50,7 +49,7 @@ namespace Minutes
         /// <summary>
         /// Receives messages from the server. For now, it just prints them to the console.
         /// </summary>
-        private async void ReceiveMessages(Action<string> receiveAction)
+        private async void ReceiveMessages(Action<string> receiveActionParam)
         {
             // Set the size of the buffer for receiving messages
             var buffer = new byte[1024];
@@ -67,7 +66,7 @@ namespace Minutes
                     if (result.MessageType != WebSocketMessageType.Text) continue;
 
                     Debug.WriteLine($"Server response: {Encoding.UTF8.GetString(buffer, 0, result.Count)}");
-                    receiveAction.Invoke(Encoding.UTF8.GetString(buffer, 0, result.Count));
+                    receiveActionParam.Invoke(Encoding.UTF8.GetString(buffer, 0, result.Count));
                 }
             }
             catch (Exception e)
