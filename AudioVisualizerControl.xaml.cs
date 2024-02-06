@@ -67,6 +67,15 @@ namespace Minutes
         public static readonly DependencyProperty BarMarginProperty =
             DependencyProperty.Register(nameof(BarMargin), typeof(double), typeof(AudioVisualizerControl), new PropertyMetadata(1.0));
 
+        public double BarCornerRadius
+        {
+            get => (double)GetValue(BarCornerRadiusProperty);
+            set => SetValue(BarCornerRadiusProperty, value);
+        }
+
+        public static readonly DependencyProperty BarCornerRadiusProperty =
+            DependencyProperty.Register(nameof(BarCornerRadius), typeof(double), typeof(AudioVisualizerControl), new PropertyMetadata(0.0));
+
 
         private static void OnAudioLevelsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
