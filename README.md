@@ -68,3 +68,45 @@ Starts the audio recording.
 ### `void StopRecording()`
 
 Stops the audio recording.
+
+# FftAudioTransformer Class
+
+A class that provides methods for transforming audio using Fast Fourier Transform (FFT) and calculating audio levels.
+
+## Methods
+
+### `double[] GetAudioLevels(IEnumerable<byte> audioBuffer, double additionalRandomNoise, int fftLength, float threshold)`
+
+Calculates audio levels from the input audio buffer using FFT.
+
+- `audioBuffer`: Input audio buffer.
+- `additionalRandomNoise`: Additional random noise.
+- `fftLength`: Length of the FFT.
+- `threshold`: Threshold for considering the audio as silence.
+
+### `double[] CreateLowLevelArray(int length)`
+
+Creates an array of low-level values with the specified length.
+
+- `length`: Length of the array.
+
+### `double[] CalculateAudioLevelsFFT(IEnumerable<byte> audioBuffer, int fftLength)`
+
+Calculates audio levels using FFT.
+
+- `audioBuffer`: Input audio buffer.
+- `fftLength`: Length of the FFT.
+
+### `float CalculateRms(double[] audioLevels)`
+
+Calculates the Root Mean Square (RMS) of the audio levels.
+
+- `audioLevels`: Array of audio levels.
+
+### `bool IsSilence(double[] audioLevels, float threshold)`
+
+Determines if the audio is considered silence based on the threshold.
+
+- `audioLevels`: Array of audio levels.
+- `threshold`: Threshold value for silence detection.
+
