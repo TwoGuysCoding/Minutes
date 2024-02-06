@@ -1,23 +1,26 @@
-﻿<Window x:Class="Minutes.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:local="clr-namespace:Minutes"
-        
-        mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600" WindowStartupLocation="CenterScreen">
+﻿<Window
+    x:Class="Minutes.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:Minutes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1600"
+    Height="900"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles.xaml"/>
-                <ResourceDictionary Source="Resources/Colors.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
     <Window.DataContext>
-        <local:MainViewModel/>
+        <local:MainViewModel />
     </Window.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -25,32 +28,54 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Background>
-        <SolidColorBrush Color="{StaticResource WindowBackgroundColor}"/>
+        <SolidColorBrush Color="{StaticResource WindowBackgroundColor}" />
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
         </Grid.RowDefinitions>
-        <Border Margin="40 40 40 0" BorderBrush="{StaticResource LightGray}" BorderThickness="4" CornerRadius="10" Padding="20">
+        <Border
+            Margin="40,40,40,0"
+            Padding="20"
+            BorderBrush="{StaticResource LightGray}"
+            BorderThickness="4"
+            CornerRadius="10">
             <ScrollViewer>
                 <ScrollViewer.Resources>
-                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBar}" />
+                    <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
                 </ScrollViewer.Resources>
-                <TextBlock FontSize="30" FontFamily="{StaticResource Antipasto}" FontWeight="Regular" 
-                           Text="{Binding TranscriptionText}" TextWrapping="WrapWithOverflow"/>
+                <TextBlock
+                    FontFamily="{StaticResource Antipasto}"
+                    FontSize="30"
+                    FontWeight="Regular"
+                    Text="{Binding TranscriptionText}"
+                    TextWrapping="WrapWithOverflow" />
             </ScrollViewer>
         </Border>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Grid.Row="1" Width="100" Height="100"  FontSize="30"
-                    Style="{StaticResource RoundedButton}" 
-                    Command="{Binding RecordCommand}" 
-                    Content="{Binding RecordButtonText}"
-                    FontFamily="{StaticResource Antipasto}" 
-                    FontWeight="Light" />
-            <local:AudioVisualizerControl AudioLevelsProperty="{Binding AudioLevels}" Width="400"  MaxHeightValue="120" BarWidth="4" BarMargin="1"/>
-            <CheckBox Style="{StaticResource AnimatedToggleButton}"/>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Grid.Row="1"
+                Width="100"
+                Height="100"
+                Command="{Binding RecordCommand}"
+                Content="{Binding RecordButtonText}"
+                FontFamily="{StaticResource Antipasto}"
+                FontSize="30"
+                FontWeight="Light"
+                Style="{StaticResource RoundedButton}" />
+            <local:AudioVisualizerControl
+                Width="400"
+                AudioLevelsProperty="{Binding AudioLevels}"
+                BarCornerRadius="2"
+                BarMargin="1"
+                BarWidth="4"
+                MaxHeightValue="120" />
+            <CheckBox Style="{StaticResource AnimatedToggleButton}" />
         </StackPanel>
-
     </Grid>
 </Window>
