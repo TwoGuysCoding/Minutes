@@ -6,9 +6,11 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Minutes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
     Title="MainWindow"
     Width="1600"
     Height="900"
+    Background="White"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -19,63 +21,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Window.DataContext>
-        <local:MainViewModel />
-    </Window.DataContext>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding InitializeMainViewModelCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    <Window.Background>
-        <SolidColorBrush Color="{StaticResource WindowBackgroundColor}" />
-    </Window.Background>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="150" />
-        </Grid.RowDefinitions>
-        <Border
-            Margin="40,40,40,0"
-            Padding="20"
-            BorderBrush="{StaticResource LightGray}"
-            BorderThickness="4"
-            CornerRadius="10">
-            <ScrollViewer>
-                <ScrollViewer.Resources>
-                    <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
-                </ScrollViewer.Resources>
-                <TextBlock
-                    FontFamily="{StaticResource Antipasto}"
-                    FontSize="30"
-                    FontWeight="Regular"
-                    Text="{Binding TranscriptionText}"
-                    TextWrapping="WrapWithOverflow" />
-            </ScrollViewer>
-        </Border>
-        <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                Grid.Row="1"
-                Width="100"
-                Height="100"
-                Command="{Binding RecordCommand}"
-                Content="{Binding RecordButtonText}"
-                FontFamily="{StaticResource Antipasto}"
-                FontSize="30"
-                FontWeight="Light"
-                Style="{StaticResource RoundedButton}" />
-            <local:AudioVisualizerControl
-                Width="400"
-                AudioLevelsProperty="{Binding AudioLevels}"
-                BarCornerRadius="2"
-                BarMargin="1"
-                BarWidth="4"
-                MaxHeightValue="120" />
-            <CheckBox Style="{StaticResource AnimatedToggleButton}" />
-        </StackPanel>
+
+        <ContentControl Content="{Binding Navigation.CurrentView}" />
+
     </Grid>
+
 </Window>

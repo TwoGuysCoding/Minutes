@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NAudio.CoreAudioApi;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 
-namespace Minutes
+namespace Minutes.MVVM.Models
 {
     /// <summary>
     /// A class that handles recording audio. To use it properly,

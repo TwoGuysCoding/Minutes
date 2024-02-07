@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Minutes
+namespace Minutes.MVVM.Models
 {
     /// <summary>
     /// A class that handles the WebSocket connection to the server.

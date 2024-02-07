@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Threading;
+using Minutes.Core;
+using Minutes.MVVM.Models;
 using NAudio.Wave;
 
-namespace Minutes
+namespace Minutes.MVVM.ViewModels
 {
-    /// <summary>
-    /// Main view model for the application. Contains all the bindings and commands for the main window.
-    /// </summary>
-    internal partial class MainViewModel : ObservableObject
+    internal partial class HomeViewModel : ViewModel
     {
         /// <summary>
         /// The WebSocket manager used for managing WebSocket connections.
@@ -41,7 +37,7 @@ namespace Minutes
         private string _transcriptionText = "";
 
         [ObservableProperty]
-        private double[] _audioLevels;
+        private double[]? _audioLevels;
 
         private readonly Stopwatch _stopwatch = new();
         private readonly DispatcherTimer _dispatcher = new();
@@ -55,7 +51,7 @@ namespace Minutes
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public HomeViewModel()
         {
             _websocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
             _audioRecorder.InitializeRecorder(RecordingHandler);
@@ -68,7 +64,7 @@ namespace Minutes
         {
             await _websocketManager.OpenConnectionAsync();
         }
-        
+
 
         /// <summary>
         /// A command that handles recording audio. If it is not recording it opens the WebSocket connection and starts recording.

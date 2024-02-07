@@ -54,6 +54,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
@@ -62,6 +63,10 @@
     <Resource Include="Fonts\AntipastoPro-Thin_trial.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\" />
   </ItemGroup>
 
 </Project>
