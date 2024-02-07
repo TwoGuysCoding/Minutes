@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
-using System.Numerics;
+﻿using System.Numerics;
 using MathNet.Numerics.IntegralTransforms;
 
-namespace Minutes
+namespace Minutes.MVVM.Models
 {
     internal static class FftAudioTransformer
     {
