@@ -39,7 +39,7 @@ public void NavigateToYourViewModel()
 	Navigation.NavigateTo<YourViewModel>();
 }
 ```
-Instead of YourViewModel, use the name of your ViewModel.
+This will create a YourViewModelCommand that can be assinged to for example button. Instead of YourViewModel, use the name of your ViewModel.
 
 Now you can bind the command to a button in the MainView. When the button is clicked, the app will navigate to your ViewModel.
 
