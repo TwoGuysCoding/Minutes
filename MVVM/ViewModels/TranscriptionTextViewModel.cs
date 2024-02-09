@@ -26,8 +26,8 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine("Tried to send null object to transcriptionViewModel");
                 return;
             }
-            TranscriptionText += (string)text;
-            TranscriptionText += (string)" ";
+            TranscriptionText += text as string;
+            TranscriptionText += " ";
         }
     }
 }
