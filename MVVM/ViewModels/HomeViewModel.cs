@@ -11,6 +11,7 @@ using Minutes.Core;
 using Minutes.MVVM.Models;
 using Minutes.Services;
 using NAudio.Wave;
+using Minutes.Utils;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -36,8 +37,6 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
 
-        public static event Action<string>? TranscriptionTextChanged;
-
         private readonly Stopwatch _stopwatch = new();
         private readonly DispatcherTimer _dispatcher = new();
 
@@ -46,9 +45,6 @@ namespace Minutes.MVVM.ViewModels
         /// Indicates whether the application is currently recording audio.
         /// </summary>
         private bool _isRecording;
-        private string _transcriptionText = "";
-
-
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -140,8 +136,7 @@ namespace Minutes.MVVM.ViewModels
         // ReSharper disable once MemberCanBeMadeStatic.Local
         private void DisplayTranscriptionText(string audioTranscript)
         {
-            TranscriptionTextChanged?.Invoke(audioTranscript);
-
+            Mediator.Instance.Send("TranscriptionTextChanged", audioTranscript);
         }
     }
 }

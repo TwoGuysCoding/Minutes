@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Minutes.Core;
+using Minutes.Utils;
 
 namespace Minutes.MVVM.ViewModels
 {
     internal partial class TranscriptionTextViewModel : ViewModel
     {
-        [ObservableProperty] private string _transcriptionText = string.Empty;
+        [ObservableProperty] private string? _transcriptionText = string.Empty;
 
         public TranscriptionTextViewModel()
         {
-            HomeViewModel.TranscriptionTextChanged += HomeViewModel_TranscriptionTextChanged;
+            Mediator.Instance.Register("TranscriptionTextChanged", ReceiveMessages);
         }
 
-        private void HomeViewModel_TranscriptionTextChanged(string text)
+        private void ReceiveMessages(object? text)
         {
-            TranscriptionText += text;
-            TranscriptionText += " ";
+            if (text == null)
+            {
+                Debug.WriteLine("Tried to send null object to transcriptionViewModel");
+                return;
+            }
+            TranscriptionText += (string)text;
+            TranscriptionText += (string)" ";
         }
     }
 }
