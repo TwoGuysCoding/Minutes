@@ -33,7 +33,6 @@ namespace Minutes.MVVM.Models
         public void InitializeRecorder(Action<object?, WaveInEventArgs> recordingFunction)
         {
             _capture.DataAvailable += new EventHandler<WaveInEventArgs>(recordingFunction);
-            _capture.RecordingStopped += (s, a) => _capture.Dispose();
         }
 
         public void StartRecording()
@@ -44,6 +43,11 @@ namespace Minutes.MVVM.Models
         public void StopRecording()
         {
             _capture.StopRecording();
+        }
+
+        public void Dispose()
+        {
+            _capture.Dispose();
         }
     }
 }

@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Windows.Threading;
 using Minutes.Core;
 using Minutes.MVVM.Models;
+using Minutes.Services;
 using NAudio.Wave;
 
 namespace Minutes.MVVM.ViewModels
@@ -18,26 +19,24 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// The WebSocket manager used for managing WebSocket connections.
         /// </summary>
-        private readonly WebsocketManager _websocketManager;
+        private readonly WebsocketManager _transcriptionWebsocketManager;
 
         /// <summary>
         /// The audio recorder used for recording audio.
         /// </summary>
-        private readonly AudioRecorder _audioRecorder = new(16000, 16, 1);
+        private AudioRecorder _audioRecorder = new(16000, 16, 1);
 
 
         /// <summary>
         /// The text displayed on the record button.
         /// </summary>
-        [ObservableProperty]
-        private string _recordButtonText = "Start";
-        [ObservableProperty]
-        private string _stopWatchText = "00:00:00";
-        [ObservableProperty]
-        private string _transcriptionText = "";
+        [ObservableProperty] private string _recordButtonText = "Start";
+        [ObservableProperty] private string _stopWatchText = "00:00:00";
+        [ObservableProperty] private string _summaryText = "The summary text will be displayed here";
+        [ObservableProperty] private double[]? _audioLevels;
+        [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
 
-        [ObservableProperty]
-        private double[]? _audioLevels;
+        public static event Action<string>? TranscriptionTextChanged;
 
         private readonly Stopwatch _stopwatch = new();
         private readonly DispatcherTimer _dispatcher = new();
@@ -47,24 +46,48 @@ namespace Minutes.MVVM.ViewModels
         /// Indicates whether the application is currently recording audio.
         /// </summary>
         private bool _isRecording;
+        private string _transcriptionText = "";
+
+
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public HomeViewModel()
+        public HomeViewModel(ITextDisplayNavigationService navigation)
         {
-            _websocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
-            _audioRecorder.InitializeRecorder(RecordingHandler);
+            TextDisplayNavigation = navigation;
+            NavigateToTranscriptionText();
+            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
         }
 
         [RelayCommand]
-        private async Task InitializeMainViewModel()
+        private async Task LoadMainView()
         {
-            await _websocketManager.OpenConnectionAsync();
+            await _transcriptionWebsocketManager.OpenConnectionAsync();
+            _audioRecorder = new AudioRecorder(16000, 16, 1);
+            _audioRecorder.InitializeRecorder(RecordingHandler);
         }
 
+        [RelayCommand]
+        private async Task UnloadMainView()
+        {
+            _audioRecorder.Dispose();
+            await _transcriptionWebsocketManager.CloseConnectionAsync();
+        }
+
+        [RelayCommand]
+        private void NavigateToSummaryText()
+        {
+            TextDisplayNavigation.NavigateTo<SummaryTextViewModel>();
+        }
+
+        [RelayCommand]
+        private void NavigateToTranscriptionText()
+        {
+            TextDisplayNavigation.NavigateTo<TranscriptionTextViewModel>();
+        }
 
         /// <summary>
         /// A command that handles recording audio. If it is not recording it opens the WebSocket connection and starts recording.
@@ -101,12 +124,12 @@ namespace Minutes.MVVM.ViewModels
         private async void RecordingHandler(object? sender, WaveInEventArgs e)
         {
             // Send the audio data to the server
-            if (!_websocketManager.IsOpen()) return;
+            if (!_transcriptionWebsocketManager.IsOpen()) return;
             var buffer = new byte[e.BytesRecorded];
             Buffer.BlockCopy(e.Buffer, 0, buffer, 0, e.BytesRecorded);
             var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 120, 0.16f);
             AudioLevels = audioLevels;
-            await _websocketManager.SendDataAsync(buffer);
+            await _transcriptionWebsocketManager.SendDataAsync(buffer);
         }
 
         private void UpdateStopWatch()
@@ -114,10 +137,11 @@ namespace Minutes.MVVM.ViewModels
             StopWatchText = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
         }
 
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         private void DisplayTranscriptionText(string audioTranscript)
         {
-            TranscriptionText += audioTranscript;
-            TranscriptionText += " ";
+            TranscriptionTextChanged?.Invoke(audioTranscript);
+
         }
     }
 }

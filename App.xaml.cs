@@ -19,14 +19,17 @@ namespace Minutes
         {
             IServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton(provider => new MainWindow()
+            services.AddSingleton(provider => new MainWindow
             {
                 DataContext = provider.GetRequiredService<MainViewModel>()
             });
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<HomeViewModel>();
             services.AddSingleton<LoginViewModel>();
+            services.AddSingleton<TranscriptionTextViewModel>();
+            services.AddSingleton<SummaryTextViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<ITextDisplayNavigationService, NavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider =>
                 viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));

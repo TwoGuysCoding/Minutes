@@ -21,7 +21,10 @@
     </UserControl.Resources>
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding InitializeMainViewModelCommand}" />
+            <b:InvokeCommandAction Command="{Binding LoadMainViewCommand}" />
+        </b:EventTrigger>
+        <b:EventTrigger EventName="Closing">
+            <b:InvokeCommandAction Command="{Binding LoadMainViewCommand}" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
     <UserControl.Background>
@@ -38,17 +41,8 @@
             BorderBrush="{StaticResource LightGray}"
             BorderThickness="4"
             CornerRadius="10">
-            <ScrollViewer>
-                <ScrollViewer.Resources>
-                    <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
-                </ScrollViewer.Resources>
-                <TextBlock
-                    FontFamily="{StaticResource Antipasto}"
-                    FontSize="30"
-                    FontWeight="Regular"
-                    Text="{Binding TranscriptionText}"
-                    TextWrapping="WrapWithOverflow" />
-            </ScrollViewer>
+            <ContentControl Content="{Binding TextDisplayNavigation.CurrentView}" />
+
         </Border>
         <StackPanel
             Grid.Row="1"

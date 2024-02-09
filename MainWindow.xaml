@@ -23,7 +23,7 @@
     </Window.Resources>
     <Grid>
 
-        <ContentControl Content="{Binding Navigation.CurrentView}" />
+        <ContentControl Content="{Binding MainNavigationService.CurrentView}" />
 
     </Grid>
 

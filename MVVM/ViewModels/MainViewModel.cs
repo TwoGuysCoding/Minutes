@@ -14,24 +14,24 @@ namespace Minutes.MVVM.ViewModels
     internal partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private INavigationService _navigation;
+        private INavigationService _mainNavigationService;
 
         public MainViewModel(INavigationService navService)
         {
-            Navigation = navService;
+            MainNavigationService = navService;
             NavigateToHome();
         }
 
         [RelayCommand]
         private void NavigateToHome()
         {
-            Navigation.NavigateTo<HomeViewModel>();
+            MainNavigationService.NavigateTo<HomeViewModel>();
         }
 
         [RelayCommand]
         private void NavigateToLogin()
         {
-            Navigation.NavigateTo<LoginViewModel>();
+            MainNavigationService.NavigateTo<LoginViewModel>();
         }
     }
 }

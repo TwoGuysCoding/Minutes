@@ -1,17 +1,25 @@
-﻿<Application x:Class="Minutes.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Minutes"
-             xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
-             xmlns:views="clr-namespace:Minutes.MVVM.Views">
+﻿<Application
+    x:Class="Minutes.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Minutes"
+    xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
+    xmlns:views="clr-namespace:Minutes.MVVM.Views">
     <Application.Resources>
-        <FontFamily x:Key="Antipasto">pack://application:,,,/Fonts/#Antipasto Pro</FontFamily>  <!--Remove this font later-->
+        <FontFamily x:Key="Antipasto">pack://application:,,,/Fonts/#Antipasto Pro</FontFamily>
+        <!--  Remove this font later  -->
 
         <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
-            <views:HomeView/>
+            <views:HomeView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
-            <views:LoginView/>
+            <views:LoginView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:TranscriptionTextViewModel}">
+            <views:TranscriptionTextView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:SummaryTextViewModel}">
+            <views:SummaryTextView />
         </DataTemplate>
     </Application.Resources>
 </Application>

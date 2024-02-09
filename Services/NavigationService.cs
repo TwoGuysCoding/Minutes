@@ -9,7 +9,7 @@ using Minutes.Core;
 
 namespace Minutes.Services
 {
-    public partial class NavigationService(Func<Type, ViewModel> viewModelFactory) : ObservableObject, INavigationService
+    public partial class NavigationService(Func<Type, ViewModel> viewModelFactory) : ObservableObject, INavigationService, ITextDisplayNavigationService
     {
 
         [ObservableProperty]
