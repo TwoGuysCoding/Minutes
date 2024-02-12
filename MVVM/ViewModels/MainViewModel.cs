@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -32,6 +33,12 @@ namespace Minutes.MVVM.ViewModels
         private void NavigateToLogin()
         {
             MainNavigationService.NavigateTo<LoginViewModel>();
+        }
+
+        [RelayCommand]
+        private void NavigateToAlwaysTopWidget()
+        {
+            MainNavigationService.NavigateTo<AlwaysTopWidgetViewModel>();
         }
     }
 }

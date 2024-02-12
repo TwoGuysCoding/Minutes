@@ -23,5 +23,8 @@
         <DataTemplate DataType="{x:Type viewModels:SummaryTextViewModel}">
             <views:SummaryTextView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AlwaysTopWidgetViewModel}">
+            <views:AlwaysTopWidgetView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
