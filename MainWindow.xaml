@@ -8,9 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
     Title="MainWindow"
-    Width="1600"
-    Height="900"
     Background="White"
+    SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>

@@ -44,7 +44,7 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Indicates whether the application is currently recording audio.
         /// </summary>
-        private bool _isRecording;
+        [ObservableProperty] private bool _isRecording;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -56,6 +56,7 @@ namespace Minutes.MVVM.ViewModels
             _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
+            
         }
 
         [RelayCommand]
@@ -97,7 +98,7 @@ namespace Minutes.MVVM.ViewModels
             {
                 _audioRecorder.StartRecording();
                 RecordButtonText = "Stop";
-                _isRecording = true;
+                IsRecording = true;
                 _stopwatch.Start();
                 _dispatcher.Start();
             }
@@ -105,7 +106,7 @@ namespace Minutes.MVVM.ViewModels
             {
                 _audioRecorder.StopRecording();
                 RecordButtonText = "Start";
-                _isRecording = false;
+                IsRecording = false;
                 _stopwatch.Stop();
                 _dispatcher.Stop();
 

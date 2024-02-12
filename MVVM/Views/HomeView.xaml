@@ -8,8 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minutes="clr-namespace:Minutes"
     xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
-    d:DesignHeight="900"
-    d:DesignWidth="1600"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -28,45 +26,204 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
     <UserControl.Background>
-        <SolidColorBrush Color="{StaticResource WindowBackgroundColor}" />
+        <SolidColorBrush Color="{StaticResource BackgroundPrimary}" />
     </UserControl.Background>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" MinWidth="500" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
-        <Border
-            Margin="40,40,40,0"
-            Padding="20"
-            BorderBrush="{StaticResource LightGray}"
-            BorderThickness="4"
-            CornerRadius="10">
-            <ContentControl Content="{Binding TextDisplayNavigation.CurrentView}" />
 
-        </Border>
-        <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                Grid.Row="1"
-                Width="100"
-                Height="100"
-                Command="{Binding RecordCommand}"
-                Content="{Binding RecordButtonText}"
-                FontFamily="{StaticResource Antipasto}"
-                FontSize="30"
-                FontWeight="Light"
-                Style="{StaticResource RoundedButton}" />
-            <minutes:AudioVisualizerControl
-                Width="400"
-                AudioLevelsProperty="{Binding AudioLevels}"
-                BarCornerRadius="2"
-                BarMargin="1"
-                BarWidth="4"
-                MaxHeightValue="120" />
-            <CheckBox Style="{StaticResource AnimatedToggleButton}" />
-        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Border
+                Margin="10,10,0,0"
+                Background="{StaticResource BackgroundSecondaryBrush}"
+                CornerRadius="15" />
+
+            <StackPanel>
+                <Button Margin="20" Style="{StaticResource TransparentButtonStyleTrans}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Width="40"
+                            Height="40"
+                            Source="/Icons/PlusIcon.png" />
+                        <TextBlock
+                            Width="200"
+                            Height="50"
+                            Padding="10,10,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource Inter}"
+                            FontSize="25"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource White}"
+                            Text="New Transcript"
+                            TextAlignment="Left" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Width="270"
+                    Height="30"
+                    Margin="20,20,0,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    Content="Transcript 1"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                    Style="{StaticResource TransparentButtonStyle}" />
+                <Button
+                    Width="270"
+                    Height="30"
+                    Margin="20,5,0,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    Content="Transcript 2"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                    Style="{StaticResource TransparentButtonStyle}" />
+                <Button
+                    Width="270"
+                    Height="30"
+                    Margin="20,5,0,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    Content="Transcript 3"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                    Style="{StaticResource TransparentButtonStyle}" />
+                <Button
+                    Width="270"
+                    Height="30"
+                    Margin="20,5,0,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    Content="Transcript 4"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                    Style="{StaticResource TransparentButtonStyle}" />
+                <Button
+                    Width="270"
+                    Height="30"
+                    Margin="20,5,0,0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    Content="Transcript 5"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                    Style="{StaticResource TransparentButtonStyle}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Border
+                Margin="10,10,10,0"
+                Background="{StaticResource BackgroundSecondaryBrush}"
+                CornerRadius="15">
+                <ContentControl Margin="10" Content="{Binding TextDisplayNavigation.CurrentView}" />
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Border
+                Margin="0,10,10,0"
+                Background="{StaticResource BackgroundSecondaryBrush}"
+                CornerRadius="15" />
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <StackPanel
+                Margin="40,0,40,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button Command="{Binding RecordCommand}" Style="{StaticResource RecordButtonStyle}" />
+                <minutes:AudioVisualizerControl
+                    Width="400"
+                    Margin="20,0,20,0"
+                    HorizontalAlignment="Left"
+                    AudioLevelsProperty="{Binding AudioLevels}"
+                    BarColor="{StaticResource PrimaryBrush}"
+                    BarCornerRadius="1"
+                    BarMargin="1.5"
+                    BarWidth="3.5"
+                    MaxHeightValue="80" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <Image
+                    Width="40"
+                    Height="40"
+                    Source="/Icons/UserIcon.png" />
+                <TextBlock
+                    Width="240"
+                    Height="40"
+                    Padding="10,5,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="30"
+                    Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                    Text="User Name"
+                    TextAlignment="Left" />
+            </StackPanel>
+        </Grid>
+
+        <Grid
+            x:Name="SearchPlate"
+            Grid.Row="0"
+            Grid.Column="2">
+            <StackPanel
+                Margin="20"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Border
+                    Height="50"
+                    Margin="10"
+                    Padding="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Background="DarkGray"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    CornerRadius="10">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            Width="150"
+                            VerticalContentAlignment="Center"
+                            Background="DarkGray"
+                            BorderThickness="0"
+                            FontSize="20">
+
+                            <TextBox.Text>
+                                <Binding
+                                    Mode="TwoWay"
+                                    Path="SearchText"
+                                    UpdateSourceTrigger="PropertyChanged" />
+                            </TextBox.Text>
+                        </TextBox>
+                        <Button
+                            Width="90"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding SearchCommand}"
+                            Content="Search"
+                            FontSize="20"
+                            FontWeight="Light"
+                            Foreground="White"
+                            Style="{StaticResource TransparentButtonStyleTrans}" />
+                    </StackPanel>
+
+                </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

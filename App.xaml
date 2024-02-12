@@ -9,6 +9,8 @@
         <FontFamily x:Key="Antipasto">pack://application:,,,/Fonts/#Antipasto Pro</FontFamily>
         <!--  Remove this font later  -->
 
+        <FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
+
         <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
             <views:HomeView />
         </DataTemplate>

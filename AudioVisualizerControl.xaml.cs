@@ -76,6 +76,14 @@ namespace Minutes
         public static readonly DependencyProperty BarCornerRadiusProperty =
             DependencyProperty.Register(nameof(BarCornerRadius), typeof(double), typeof(AudioVisualizerControl), new PropertyMetadata(0.0));
 
+        public SolidColorBrush BarColor
+        {
+            get => (SolidColorBrush)GetValue(BarColorProperty);
+            set => SetValue(BarColorProperty, value);
+        }
+
+        public static readonly DependencyProperty BarColorProperty =
+            DependencyProperty.Register(nameof(BarColor), typeof(SolidColorBrush), typeof(AudioVisualizerControl), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
 
         private static void OnAudioLevelsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -16,7 +16,7 @@
                     Width="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=BarWidth}"
                     Height="{Binding}"
                     Margin="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=BarMargin}"
-                    Fill="DarkOrange"
+                    Fill="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=BarColor}"
                     RadiusX="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=BarCornerRadius}"
                     RadiusY="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=BarCornerRadius}" />
             </DataTemplate>

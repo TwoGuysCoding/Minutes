@@ -77,3 +77,6 @@ If for some reason you want to unregister the function that handles the message,
 Mediator.Instance.Unregister("Your_message_name", Your_recive_function);
 ```
 The function works just like the Register function but it unregisters the function that handles the message.
+
+## About audio visualisation and record button style
+The RecordButton style works by binding to IsRecording propery in the HomeViewModel. If there is no such property it will caouse a binding error.
