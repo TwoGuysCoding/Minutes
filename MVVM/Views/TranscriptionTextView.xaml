@@ -22,9 +22,10 @@
                 <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
             </ScrollViewer.Resources>
             <TextBlock
-                FontFamily="{StaticResource Antipasto}"
-                FontSize="30"
+                FontFamily="{StaticResource Inter}"
+                FontSize="25"
                 FontWeight="Regular"
+                Foreground="{StaticResource TextForegroundPrimaryBrush}"
                 Text="{Binding TranscriptionText}"
                 TextWrapping="WrapWithOverflow" />
         </ScrollViewer>

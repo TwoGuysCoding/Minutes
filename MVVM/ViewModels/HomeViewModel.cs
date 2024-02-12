@@ -44,7 +44,7 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Indicates whether the application is currently recording audio.
         /// </summary>
-        private bool _isRecording;
+        [ObservableProperty] private bool _isRecording;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -97,7 +97,7 @@ namespace Minutes.MVVM.ViewModels
             {
                 _audioRecorder.StartRecording();
                 RecordButtonText = "Stop";
-                _isRecording = true;
+                IsRecording = true;
                 _stopwatch.Start();
                 _dispatcher.Start();
             }
@@ -105,7 +105,7 @@ namespace Minutes.MVVM.ViewModels
             {
                 _audioRecorder.StopRecording();
                 RecordButtonText = "Start";
-                _isRecording = false;
+                IsRecording = false;
                 _stopwatch.Stop();
                 _dispatcher.Stop();
 
