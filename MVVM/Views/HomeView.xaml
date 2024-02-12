@@ -178,5 +178,19 @@
                     TextAlignment="Left" />
             </StackPanel>
         </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <StackPanel
+                Margin="20"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBox
+                    Width="240"
+                    Height="30"
+                    VerticalAlignment="Top"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="20" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
