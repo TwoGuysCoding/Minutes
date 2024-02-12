@@ -8,10 +8,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
     Title="MainWindow"
+    AllowsTransparency="True"
     Background="White"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="0"
+            CornerRadius="10"
+            GlassFrameThickness="0"
+            ResizeBorderThickness="10" />
+    </WindowChrome.WindowChrome>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,6 +31,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <Grid>
 
         <ContentControl Content="{Binding MainNavigationService.CurrentView}" />

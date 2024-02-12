@@ -35,17 +35,25 @@
     <None Remove="Fonts\Inter-Regular.ttf" />
     <None Remove="Fonts\Inter-SemiBold.ttf" />
     <None Remove="Fonts\Inter-Thin.ttf" />
+    <None Remove="Icons\Microphone.png" />
+    <None Remove="Icons\MicrophoneCrossed.png" />
     <None Remove="Icons\PlusIcon.png" />
     <None Remove="Icons\UserIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Icons\PlusIcon.png">
+    <Resource Include="Icons\Microphone.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Icons\UserIcon.png">
+    </Resource>
+    <Resource Include="Icons\MicrophoneCrossed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Icons\PlusIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\UserIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
