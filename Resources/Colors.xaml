@@ -28,9 +28,9 @@
     <SolidColorBrush x:Key="White" Color="{StaticResource WhiteColor}" />
 
     <!--  New section for colors  -->
-    <Color x:Key="Primary">#3838e5</Color>
-    <Color x:Key="PrimaryDark">#1c1cdd</Color>
-    <Color x:Key="PrimaryLight">#5858e9</Color>
+    <Color x:Key="Primary">#7734EA</Color>
+    <Color x:Key="PrimaryDark">#5410CA</Color>
+    <Color x:Key="PrimaryLight">#9B54FF</Color>
     <Color x:Key="BackgroundPrimary">#232323</Color>
     <Color x:Key="BackgroundSecondary">#353535</Color>
     <Color x:Key="BackgroundTertiary">#474747</Color>

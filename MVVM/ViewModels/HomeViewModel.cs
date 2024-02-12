@@ -56,6 +56,7 @@ namespace Minutes.MVVM.ViewModels
             _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
+            
         }
 
         [RelayCommand]

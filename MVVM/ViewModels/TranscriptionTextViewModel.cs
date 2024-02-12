@@ -17,6 +17,7 @@ namespace Minutes.MVVM.ViewModels
         public TranscriptionTextViewModel()
         {
             Mediator.Instance.Register("TranscriptionTextChanged", ReceiveMessages);
+            TranscriptionText = "Transcription text will be displayed here";
         }
 
         private void ReceiveMessages(object? text)
