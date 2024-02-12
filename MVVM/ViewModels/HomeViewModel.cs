@@ -94,13 +94,14 @@ namespace Minutes.MVVM.ViewModels
         private void Record()
         {
             // If not recording, start recording
-            if (!_isRecording)
+            if (!IsRecording)
             {
                 _audioRecorder.StartRecording();
                 RecordButtonText = "Stop";
                 IsRecording = true;
                 _stopwatch.Start();
                 _dispatcher.Start();
+                Mediator.Instance.Send("SendRecordingStatus", true);
             }
             else    // If recording, stop recording
             {
@@ -109,7 +110,7 @@ namespace Minutes.MVVM.ViewModels
                 IsRecording = false;
                 _stopwatch.Stop();
                 _dispatcher.Stop();
-
+                Mediator.Instance.Send("SendRecordingStatus", false);
             }
         }
 
