@@ -136,15 +136,17 @@
                     HorizontalAlignment="Stretch"
                     Background="Transparent"
                     BorderThickness="0"
+                    SelectedIndex="{Binding SelectedTabIndex}"
                     TabStripPlacement="Top">
-                    <TabItem
-                        Background="Transparent"
-                        Header="Transcription"
-                        Style="{StaticResource TabItemStyle}">
-                        <ContentControl Margin="40" Content="{Binding TextDisplayNavigation.CurrentView}" />
+                    <TabItem Header="Transcription" Style="{StaticResource TabItemStyle}">
+                        <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
                     </TabItem>
-                    <TabItem Header="Enchanced Transcription" Style="{StaticResource TabItemStyle}" />
-                    <TabItem Header="Summary" Style="{StaticResource TabItemStyle}" />
+                    <TabItem Header="Enhanced Transcription" Style="{StaticResource TabItemStyle}">
+                        <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
+                    </TabItem>
+                    <TabItem Header="Summary" Style="{StaticResource TabItemStyle}">
+                        <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
+                    </TabItem>
                 </TabControl>
             </Grid>
 

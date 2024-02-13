@@ -8,7 +8,27 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml" />
+                <ResourceDictionary Source="/Resources/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding SummaryText}" />
+        <ScrollViewer>
+            <ScrollViewer.Resources>
+                <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
+            </ScrollViewer.Resources>
+            <TextBlock
+                Padding="10"
+                FontFamily="{StaticResource Inter}"
+                FontSize="25"
+                FontWeight="Regular"
+                Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                Text="{Binding TranscriptionText}"
+                TextWrapping="WrapWithOverflow" />
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -8,20 +8,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Minutes.MVVM.ViewModels"
     Title="MainWindow"
-    AllowsTransparency="True"
+    AllowsTransparency="False"
     Background="White"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
+    WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
 
-    <WindowChrome.WindowChrome>
+    <!--<WindowChrome.WindowChrome>
         <WindowChrome
             CaptionHeight="0"
             CornerRadius="10"
             GlassFrameThickness="0"
             ResizeBorderThickness="10" />
-    </WindowChrome.WindowChrome>
+    </WindowChrome.WindowChrome>-->
 
     <Window.Resources>
         <ResourceDictionary>

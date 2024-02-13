@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Minutes.MVVM.Views.TranscriptionTextView"
+    x:Class="Minutes.MVVM.Views.EnhancedTranscriptionTextView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,7 +27,7 @@
                 FontSize="25"
                 FontWeight="Regular"
                 Foreground="{StaticResource TextForegroundPrimaryBrush}"
-                Text="{Binding TranscriptionText}"
+                Text="{Binding EnhancedTranscriptionText}"
                 TextWrapping="WrapWithOverflow" />
         </ScrollViewer>
     </Grid>

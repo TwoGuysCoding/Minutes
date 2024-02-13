@@ -26,5 +26,8 @@
         <DataTemplate DataType="{x:Type viewModels:AlwaysTopWidgetViewModel}">
             <views:AlwaysTopWidgetView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:EnhancedTranscriptionTextViewModel}">
+            <views:EnhancedTranscriptionTextView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

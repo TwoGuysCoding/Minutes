@@ -29,6 +29,7 @@ namespace Minutes
             services.AddSingleton<TranscriptionTextViewModel>();
             services.AddSingleton<SummaryTextViewModel>();
             services.AddSingleton<AlwaysTopWidgetViewModel>();
+            services.AddSingleton<EnhancedTranscriptionTextViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ITextDisplayNavigationService, NavigationService>();
 

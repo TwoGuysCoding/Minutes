@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,31 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
 
+        private int _selectedTabIndex;
+
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set
+            {
+                _selectedTabIndex = value;
+                OnPropertyChanged();
+
+                switch (value)
+                {
+                    case 0:
+                        NavigateToTranscriptionText();
+                        break;
+                    case 1:
+                        NavigateToEnhancedTranscriptionText();
+                        break;
+                    case 2:
+                        NavigateToSummaryText();
+                        break;
+                }
+            }
+        }
+
         private readonly Stopwatch _stopwatch = new();
         private readonly DispatcherTimer _dispatcher = new();
 
@@ -53,10 +79,9 @@ namespace Minutes.MVVM.ViewModels
         {
             TextDisplayNavigation = navigation;
             NavigateToTranscriptionText();
-            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe/vosk/en", DisplayTranscriptionText);
+            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
-            
         }
 
         [RelayCommand]
@@ -78,12 +103,19 @@ namespace Minutes.MVVM.ViewModels
         private void NavigateToSummaryText()
         {
             TextDisplayNavigation.NavigateTo<SummaryTextViewModel>();
+            Debug.WriteLine("Changed to summary view");
         }
 
         [RelayCommand]
         private void NavigateToTranscriptionText()
         {
             TextDisplayNavigation.NavigateTo<TranscriptionTextViewModel>();
+        }
+
+        [RelayCommand]
+        private void NavigateToEnhancedTranscriptionText()
+        {
+            TextDisplayNavigation.NavigateTo<EnhancedTranscriptionTextViewModel>();
         }
 
         /// <summary>
@@ -111,6 +143,7 @@ namespace Minutes.MVVM.ViewModels
                 _stopwatch.Stop();
                 _dispatcher.Stop();
                 Mediator.Instance.Send("SendRecordingStatus", false);
+                Mediator.Instance.Send("SendTranscriptionTextForEnhancement");
             }
         }
 
