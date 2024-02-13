@@ -10,8 +10,6 @@ using Minutes.Core;
 using Minutes.Utils;
 using Newtonsoft.Json;
 
-#pragma warning disable IDE0028
-
 namespace Minutes.MVVM.ViewModels
 {
     internal partial class TranscriptionTextViewModel : ViewModel
