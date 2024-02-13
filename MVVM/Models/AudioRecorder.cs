@@ -49,5 +49,10 @@ namespace Minutes.MVVM.Models
         {
             _capture.Dispose();
         }
+
+        public double GetAverageBytesPerSecond()
+        {
+            return _capture.WaveFormat.AverageBytesPerSecond;
+        }
     }
 }

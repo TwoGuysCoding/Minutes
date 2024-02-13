@@ -24,7 +24,7 @@
             <TextBlock
                 Padding="10"
                 FontFamily="{StaticResource Inter}"
-                FontSize="25"
+                FontSize="15"
                 FontWeight="Regular"
                 Foreground="{StaticResource TextForegroundPrimaryBrush}"
                 Text="{Binding EnhancedTranscriptionText}"

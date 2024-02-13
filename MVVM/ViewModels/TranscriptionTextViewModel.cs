@@ -18,10 +18,11 @@ namespace Minutes.MVVM.ViewModels
     {
         [ObservableProperty] private string? _transcriptionText = string.Empty;
 
+        private string? _recentTranscription;
+
         public TranscriptionTextViewModel()
         {
             Mediator.Instance.Register("TranscriptionTextChanged", ReceiveMessages);
-            Mediator.Instance.Register("SendTranscriptionTextForEnhancement", SendTranscriptionTextForEnhancement);
         }
 
         private void ReceiveMessages(object? text)
@@ -31,17 +32,21 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine("Tried to send null object to transcriptionViewModel");
                 return;
             }
+            _recentTranscription += text as string + " ";
             TranscriptionText += text as string;
-            TranscriptionText += " ";
+            if (_recentTranscription.Length <= 500) return;
+
+            SendTranscriptionTextForEnhancement(_recentTranscription);
+            _recentTranscription = string.Empty;
         }
 
-        private async void SendTranscriptionTextForEnhancement(object? _)
+        private async void SendTranscriptionTextForEnhancement(string? text)
         {
             try
             {
                 using var httpClient = new HttpClient();
                 var jsonContent = new StringContent(
-                    JsonConvert.SerializeObject(new { text = TranscriptionText ?? string.Empty }),
+                    JsonConvert.SerializeObject(new { text = text ?? string.Empty }),
                     Encoding.UTF8,
                     "application/json");
                 var response = await httpClient.PostAsync("http://localhost:5000/demo/enhance_text", jsonContent);

@@ -21,12 +21,15 @@
             <ScrollViewer.Resources>
                 <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
             </ScrollViewer.Resources>
-            <TextBlock
+            <TextBox
+                BorderBrush="Transparent"
                 Padding="10"
+                Background="Transparent"
                 FontFamily="{StaticResource Inter}"
-                FontSize="25"
+                FontSize="15"
                 FontWeight="Regular"
                 Foreground="{StaticResource TextForegroundPrimaryBrush}"
+                IsReadOnly="True"
                 Text="{Binding TranscriptionText}"
                 TextWrapping="WrapWithOverflow" />
         </ScrollViewer>

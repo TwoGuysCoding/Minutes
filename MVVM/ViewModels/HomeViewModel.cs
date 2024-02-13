@@ -38,6 +38,8 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
 
+        private double _recordingTime;
+
         private int _selectedTabIndex;
 
         public int SelectedTabIndex
@@ -143,7 +145,7 @@ namespace Minutes.MVVM.ViewModels
                 _stopwatch.Stop();
                 _dispatcher.Stop();
                 Mediator.Instance.Send("SendRecordingStatus", false);
-                Mediator.Instance.Send("SendTranscriptionTextForEnhancement");
+                
             }
         }
 
