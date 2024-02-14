@@ -45,7 +45,6 @@
             Grid.Column="0"
             Grid.ColumnSpan="3">
             <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <!--  Dodać Template do przycisku wyjścia  -->
                 <Button
                     Width="25"
                     Height="25"
@@ -60,7 +59,6 @@
                     FontWeight="Light"
                     Foreground="{StaticResource White}"
                     Style="{StaticResource NavBarButtonStyle}" />
-                <!--  Template do minimalizacji  -->
                 <Button
                     Width="25"
                     Height="25"

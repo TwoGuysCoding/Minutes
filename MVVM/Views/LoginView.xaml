@@ -7,9 +7,182 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Background="Gray"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml" />
+                <ResourceDictionary Source="/Resources/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Background>
+        <SolidColorBrush Color="{StaticResource BackgroundPrimary}" />
+    </UserControl.Background>
     <Grid>
-        <TextBlock Width="800" Text="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Button
+                    Width="25"
+                    Height="25"
+                    Margin="1,1,10,1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    BorderThickness="0"
+                    Command="{Binding ExitCommand}"
+                    Content="x"
+                    DockPanel.Dock="Right"
+                    FontSize="15"
+                    FontWeight="Light"
+                    Foreground="{StaticResource White}"
+                    Style="{StaticResource NavBarButtonStyle}" />
+                <Button
+                    Width="25"
+                    Height="25"
+                    Margin="1,1,10,1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    Command="{Binding MinimilizeCommand}"
+                    Content="-"
+                    DockPanel.Dock="Right"
+                    FontSize="20"
+                    FontWeight="Light"
+                    Foreground="{StaticResource White}"
+                    Style="{StaticResource NavBarButtonStyle}" />
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border
+                Width="250"
+                Height="300"
+                Background="{StaticResource BackgroundSecondaryBrush}"
+                CornerRadius="20">
+
+                <TabControl
+                    Padding="1"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    SelectedIndex="{Binding SelectedTabIndex}"
+                    TabStripPlacement="Top">
+                    <TabItem
+                        x:Name="Login"
+                        Header="Log In"
+                        Style="{StaticResource TabItemStyle}">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent">
+                            <TextBlock
+                                Margin="0,50,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="30"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource White}"
+                                Text="Minutes" />
+                            <TextBox
+                                Width="210"
+                                Height="35"
+                                Margin="20,10,20,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                FontWeight="Light"
+                                Foreground="Black"
+                                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                            <PasswordBox
+                                Width="210"
+                                Height="35"
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                FontWeight="Light"
+                                Foreground="Black" />
+                            <Button
+                                Width="200"
+                                Height="30"
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{Binding LoginCommand}"
+                                Content="Login"
+                                FontSize="15"
+                                FontWeight="Light"
+                                Style="{StaticResource ColorButtonSquare}" />
+                            <TextBlock
+                                Margin="0,10,0,20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="25"
+                                FontWeight="Light"
+                                Foreground="{StaticResource White}"
+                                Text="{Binding ErrorMessage}" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Register" Style="{StaticResource TabItemStyle}">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent">
+                            <TextBlock
+                                Margin="0,50,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="30"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource White}"
+                                Text="Create" />
+                            <TextBox
+                                Width="210"
+                                Height="35"
+                                Margin="20,10,20,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                FontWeight="Light"
+                                Foreground="Black"
+                                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                            <PasswordBox
+                                Width="210"
+                                Height="35"
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                FontWeight="Light"
+                                Foreground="Black" />
+                            <Button
+                                Width="200"
+                                Height="30"
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{Binding LoginCommand}"
+                                Content="Register"
+                                FontSize="15"
+                                FontWeight="Light"
+                                Style="{StaticResource ColorButtonSquare}" />
+                            <TextBlock
+                                Margin="0,10,0,20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="25"
+                                FontWeight="Light"
+                                Foreground="{StaticResource White}"
+                                Text="{Binding ErrorMessage}" />
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>
