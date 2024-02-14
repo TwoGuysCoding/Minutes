@@ -17,9 +17,9 @@ await ws.OpenConnectionAsync();
 The OpenConnectionAsync method is an async method that opens the connection to the server.
 It returns a boolean that is true if the connection was opened successfully and false if it was not.
 
-YourRecieveFunction is a function that is called when the websocket recieves a message.
+YourReceiveFunction is a function that is called when the websocket recieves a message.
 ```csharp
-private void YourRecieveFunction(string message)
+private void YourReceiveFunction(string message)
 {
 	// Do something with the message
 }
@@ -48,7 +48,7 @@ var yourRecordingDevice = new YourRecordingDevice();
 yourRecordingDevice.StartRecording();
 var yourByteArray = yourRecordingDevice.GetRecording();	// a hypothetical method that returns the byte array of the recording
 
-var ws = new WebsocketManager("ws://localhost:8000", YourRecieveFunction);
+var ws = new WebsocketManager("ws://localhost:8000", YourReceiveFunction);
 await ws.OpenConnectionAsync();
 await ws.SendDataAsync(yourByteArray);
 await ws.CloseConnectionAsync();
