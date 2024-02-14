@@ -69,7 +69,7 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     BorderThickness="0"
-                    SelectedIndex="{Binding SelectedTabIndex}"
+                    SelectedIndex="0"
                     TabStripPlacement="Top">
                     <TabItem
                         x:Name="Login"

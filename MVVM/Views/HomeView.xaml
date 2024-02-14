@@ -68,6 +68,24 @@
                     BorderBrush="Black"
                     BorderThickness="0"
                     Command="{Binding MinimilizeCommand}"
+                    DockPanel.Dock="Right"
+                    FontWeight="Light"
+                    Foreground="{StaticResource White}"
+                    Style="{StaticResource NavBarButtonStyle}">
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="/Icons/maximaze.png" />
+                </Button>
+                <Button
+                    Width="25"
+                    Height="25"
+                    Margin="1,1,10,1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    Command="{Binding MinimilizeCommand}"
                     Content="-"
                     DockPanel.Dock="Right"
                     FontSize="20"
