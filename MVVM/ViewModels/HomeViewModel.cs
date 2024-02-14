@@ -26,7 +26,7 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// The audio recorder used for recording audio.
         /// </summary>
-        private AudioRecorder _audioRecorder = new(16000, 16, 1);
+        private readonly IRecordingService _recordingService;
 
 
         /// <summary>
@@ -76,28 +76,31 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public HomeViewModel(ITextDisplayNavigationService navigation, INavigationService mainNavigationService)
+        public HomeViewModel(ITextDisplayNavigationService navigation, INavigationService mainNavigationService, IRecordingService recordingService)
         {
             TextDisplayNavigation = navigation;
             _mainNavigationService = mainNavigationService;
+            _recordingService = recordingService;
+            _recordingService.ChangeRecordingDevice(RecordingDeviceType.WasapiLoopBackCapture);
+            _recordingService.SetAudioFormat(16000, 16, 1);
+            _recordingService.InitializeRecordingHandler(RecordingHandler);
             NavigateToTranscriptionText();
             _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
+            _recordingService = recordingService;
         }
 
         [RelayCommand]
         private async Task LoadMainView()
         {
             await _transcriptionWebsocketManager.OpenConnectionAsync();
-            _audioRecorder = new AudioRecorder(16000, 16, 1);
-            _audioRecorder.InitializeRecorder(RecordingHandler);
         }
 
         [RelayCommand]
         private async Task UnloadMainView()
         {
-            _audioRecorder.Dispose();
+            _recordingService.DisposeRecorder();
             await _transcriptionWebsocketManager.CloseConnectionAsync();
         }
 
@@ -136,7 +139,7 @@ namespace Minutes.MVVM.ViewModels
             // If not recording, start recording
             if (!IsRecording)
             {
-                _audioRecorder.StartRecording();
+                _recordingService.StartRecording();
                 RecordButtonText = "Stop";
                 IsRecording = true;
                 _stopwatch.Start();
@@ -145,7 +148,7 @@ namespace Minutes.MVVM.ViewModels
             }
             else    // If recording, stop recording
             {
-                _audioRecorder.StopRecording();
+                _recordingService.StopRecording();
                 RecordButtonText = "Start";
                 IsRecording = false;
                 _stopwatch.Stop();

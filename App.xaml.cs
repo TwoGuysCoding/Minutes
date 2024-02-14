@@ -36,6 +36,21 @@ namespace Minutes
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider =>
                 viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
+            services.AddSingleton<WasapiLoopBackCaptureRecordingDevice>();
+            services.AddSingleton<WaveInEventRecordingDevice>();
+
+            services.AddSingleton<Func<RecordingDeviceType, IRecordingDevice>>(serviceProvider => key =>
+            {
+                return key switch
+                {
+                    RecordingDeviceType.WasapiLoopBackCapture => serviceProvider
+                        .GetRequiredService<WasapiLoopBackCaptureRecordingDevice>(),
+                    RecordingDeviceType.WaveInEvent => serviceProvider.GetRequiredService<WaveInEventRecordingDevice>(),
+                    _ => throw new KeyNotFoundException()
+                };
+            });
+            services.AddTransient<IRecordingService, RecordingService>();
+
             _serviceProvider = services.BuildServiceProvider();
         }
 
