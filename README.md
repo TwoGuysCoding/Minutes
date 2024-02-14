@@ -13,4 +13,4 @@ When the window loads it connects to the websocket server. When the user clicks 
 4. [Overview of Mediator pattern](./Docs/Patterns/MediatorREADME.md)
 
 ## About audio visualisation and record button style
-The RecordButton style works by binding to IsRecording propery in the HomeViewModel. If there is no such property it will caouse a binding error.
+The RecordButton style works by binding to IsRecording propery in the HomeViewModel. If there is no such property it will cause a binding error.
