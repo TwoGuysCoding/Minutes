@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Minutes.MVVM.Models;
 using Minutes.Services;
+using Minutes.Utils;
 using NAudio.Wave;
 
 namespace Minutes.MVVM.ViewModels
@@ -14,13 +15,20 @@ namespace Minutes.MVVM.ViewModels
     /// </summary>
     internal partial class MainViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private INavigationService _mainNavigationService;
+        [ObservableProperty] private INavigationService _mainNavigationService;
+        [ObservableProperty] private bool _isAlwaysTopWindow;
 
         public MainViewModel(INavigationService navService)
         {
             MainNavigationService = navService;
             NavigateToHome();
+            Mediator.Instance.Register("SetToAlwaysTopWindow", (value) =>
+            {
+                if (value is bool b)
+                    IsAlwaysTopWindow = b;
+                else
+                    throw new InvalidCastException("Value is not a boolean");
+            });
         }
 
         [RelayCommand]

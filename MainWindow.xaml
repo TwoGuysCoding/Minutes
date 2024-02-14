@@ -11,6 +11,7 @@
     AllowsTransparency="False"
     Background="White"
     SizeToContent="WidthAndHeight"
+    Topmost="{Binding IsAlwaysTopWindow}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">

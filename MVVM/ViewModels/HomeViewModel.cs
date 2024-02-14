@@ -37,6 +37,7 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private string _summaryText = "The summary text will be displayed here";
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
+        [ObservableProperty] private INavigationService _mainNavigationService;
 
         private int _selectedTabIndex;
 
@@ -75,9 +76,10 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public HomeViewModel(ITextDisplayNavigationService navigation)
+        public HomeViewModel(ITextDisplayNavigationService navigation, INavigationService mainNavigationService)
         {
             TextDisplayNavigation = navigation;
+            _mainNavigationService = mainNavigationService;
             NavigateToTranscriptionText();
             _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en-giga", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
@@ -103,7 +105,13 @@ namespace Minutes.MVVM.ViewModels
         private void NavigateToSummaryText()
         {
             TextDisplayNavigation.NavigateTo<SummaryTextViewModel>();
-            Debug.WriteLine("Changed to summary view");
+        }
+
+        [RelayCommand]
+        private void NavigateToAlwaysTopWidget()
+        {
+            MainNavigationService.NavigateTo<AlwaysTopWidgetViewModel>();
+            Mediator.Instance.Send("SetToAlwaysTopWindow", true);
         }
 
         [RelayCommand]
