@@ -21,14 +21,7 @@
             <ScrollViewer.Resources>
                 <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
             </ScrollViewer.Resources>
-            <TextBlock
-                Padding="10"
-                FontFamily="{StaticResource Inter}"
-                FontSize="25"
-                FontWeight="Regular"
-                Foreground="{StaticResource TextForegroundPrimaryBrush}"
-                Text="{Binding TranscriptionText}"
-                TextWrapping="WrapWithOverflow" />
+            <TextBox Style="{StaticResource TransparentTextBox}" Text="The summary text will be here" />
         </ScrollViewer>
     </Grid>
 </UserControl>

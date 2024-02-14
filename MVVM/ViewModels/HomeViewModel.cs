@@ -38,8 +38,6 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
 
-        private double _recordingTime;
-
         private int _selectedTabIndex;
 
         public int SelectedTabIndex
@@ -81,7 +79,7 @@ namespace Minutes.MVVM.ViewModels
         {
             TextDisplayNavigation = navigation;
             NavigateToTranscriptionText();
-            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en", DisplayTranscriptionText);
+            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en-giga", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
         }

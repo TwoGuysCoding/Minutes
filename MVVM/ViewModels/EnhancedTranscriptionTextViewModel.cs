@@ -12,12 +12,12 @@ namespace Minutes.MVVM.ViewModels
 {
     internal partial class EnhancedTranscriptionTextViewModel : ViewModel
     {
-        [ObservableProperty] private string _enhancedTranscriptionText = "The enhanced transcription text will be displayed here";
+        [ObservableProperty] private string _enhancedTranscriptionText = "The enhanced transcription text will be displayed here: \n";
 
         public EnhancedTranscriptionTextViewModel()
         {
             Mediator.Instance.Register("SendEnhancedTranscription", DisplayEnhancedTranscriptionText);
-        }
+        }   
 
         private void DisplayEnhancedTranscriptionText(object? text)
         {
