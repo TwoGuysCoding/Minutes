@@ -75,7 +75,7 @@
                     <Image
                         Width="16"
                         Height="16"
-                        Source="/Icons/maximaze.png" />
+                        Source="/Icons/Maximize.png" />
                 </Button>
                 <Button
                     Width="25"
