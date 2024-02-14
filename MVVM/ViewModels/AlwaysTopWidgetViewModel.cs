@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Minutes.Core;
+using Minutes.Services;
 using Minutes.Utils;
 
 namespace Minutes.MVVM.ViewModels
@@ -16,14 +18,15 @@ namespace Minutes.MVVM.ViewModels
     internal partial class AlwaysTopWidgetViewModel : ViewModel
     {
         [ObservableProperty] private ImageSource _currentMicrophoneImage;
+        private readonly INavigationService _mainNavigationService;
 
         private readonly ImageSource _microphoneImage;
         private readonly ImageSource _microphoneImageCrossed;
 
-        private bool _isRecording;
-
-        public AlwaysTopWidgetViewModel()
+        public AlwaysTopWidgetViewModel(INavigationService navigation)
         {
+            _mainNavigationService = navigation;
+
             Mediator.Instance.Register("SendRecordingStatus", UpdateRecordingStatus);
 
             var microphoneImage = new BitmapImage(new Uri(@"pack://application:,,,/Icons/Microphone.png", UriKind.Absolute));
@@ -41,6 +44,13 @@ namespace Minutes.MVVM.ViewModels
         private void UpdateMicrophoneImage(bool status)
         {
             CurrentMicrophoneImage = status ? _microphoneImage : _microphoneImageCrossed;
+        }
+
+        [RelayCommand]
+        private void NavigateToHome()
+        {
+            _mainNavigationService.NavigateTo<HomeViewModel>();
+            Mediator.Instance.Send("SetToAlwaysTopWindow", false);
         }
     }
 }

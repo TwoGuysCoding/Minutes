@@ -44,5 +44,19 @@
                 Text="00:00"
                 TextAlignment="Center" />
         </StackPanel>
+        <Button
+            Width="20"
+            Height="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Command="{Binding NavigateToHomeCommand}"
+            Style="{StaticResource TransparentButtonStyle}">
+            <Image
+                Width="15"
+                Height="15"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="pack://application:,,,/Icons/MaximizeIcon.png" />
+        </Button>
     </Grid>
 </UserControl>
