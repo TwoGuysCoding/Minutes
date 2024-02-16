@@ -14,5 +14,6 @@ namespace Minutes.Services
         void StopRecording();
         void Dispose();
         void InitializeRecordingHandler(Action<object?, WaveInEventArgs> recordingFunction);
+        bool IsRecording { get; }
     }
 }

@@ -16,5 +16,6 @@ namespace Minutes.Services
         void SetAudioFormat(int sampleRate, int bits, int channels);
         void ChangeRecordingDevice(RecordingDeviceType recordingDeviceType);
         void InitializeRecordingHandler(Action<object?, WaveInEventArgs> recordingFunction);
+        bool IsRecording { get; }
     }
 }

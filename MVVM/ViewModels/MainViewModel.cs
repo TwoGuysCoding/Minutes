@@ -15,20 +15,15 @@ namespace Minutes.MVVM.ViewModels
     /// </summary>
     internal partial class MainViewModel : ObservableObject
     {
-        [ObservableProperty] private INavigationService _mainNavigationService;
+        [ObservableProperty] private IMainNavigationService _mainNavigationService;
         [ObservableProperty] private bool _isAlwaysTopWindow;
+        [ObservableProperty] private SizeToContent _sizeToContentState = SizeToContent.WidthAndHeight;
+        [ObservableProperty] private ResizeMode _currentResizeMode = ResizeMode.CanResizeWithGrip;
 
-        public MainViewModel(INavigationService navService)
+        public MainViewModel(IMainNavigationService navService)
         {
             MainNavigationService = navService;
             NavigateToHome();
-            Mediator.Instance.Register("SetToAlwaysTopWindow", (value) =>
-            {
-                if (value is bool b)
-                    IsAlwaysTopWindow = b;
-                else
-                    throw new InvalidCastException("Value is not a boolean");
-            });
         }
 
         [RelayCommand]
@@ -41,12 +36,6 @@ namespace Minutes.MVVM.ViewModels
         private void NavigateToLogin()
         {
             MainNavigationService.NavigateTo<LoginViewModel>();
-        }
-
-        [RelayCommand]
-        private void NavigateToAlwaysTopWidget()
-        {
-            MainNavigationService.NavigateTo<AlwaysTopWidgetViewModel>();
         }
     }
 }

@@ -42,5 +42,7 @@ namespace Minutes.Services
         {
             _recordingDevice?.InitializeRecordingHandler(recordingFunction);
         }
+
+        public bool IsRecording => _recordingDevice is { IsRecording: true };
     }
 }

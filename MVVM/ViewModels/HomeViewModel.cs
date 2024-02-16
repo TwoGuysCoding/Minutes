@@ -13,6 +13,7 @@ using Minutes.MVVM.Models;
 using Minutes.Services;
 using NAudio.Wave;
 using Minutes.Utils;
+using Minutes.Windows;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -37,7 +38,8 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private string _summaryText = "The summary text will be displayed here";
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
-        [ObservableProperty] private INavigationService _mainNavigationService;
+        [ObservableProperty] private IMainNavigationService _mainNavigationService;
+        private IWindowNavigationService _windowNavigationService;
 
         private int _selectedTabIndex;
 
@@ -76,8 +78,10 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public HomeViewModel(ITextDisplayNavigationService navigation, INavigationService mainNavigationService, IRecordingService recordingService)
+        public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService, 
+            IRecordingService recordingService, IWindowNavigationService windowNavigationService)
         {
+            _windowNavigationService = windowNavigationService;
             TextDisplayNavigation = navigation;
             _mainNavigationService = mainNavigationService;
             _recordingService = recordingService;
@@ -89,6 +93,7 @@ namespace Minutes.MVVM.ViewModels
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
             _recordingService = recordingService;
+            _windowNavigationService = windowNavigationService;
         }
 
         [RelayCommand]
@@ -113,8 +118,8 @@ namespace Minutes.MVVM.ViewModels
         [RelayCommand]
         private void NavigateToAlwaysTopWidget()
         {
-            MainNavigationService.NavigateTo<AlwaysTopWidgetViewModel>();
-            Mediator.Instance.Send("SetToAlwaysTopWindow", true);
+            _windowNavigationService.ShowWindow<AlwaysTopWidgetWindow>();
+            _windowNavigationService.CloseWindow<MainWindow>();
         }
 
         [RelayCommand]

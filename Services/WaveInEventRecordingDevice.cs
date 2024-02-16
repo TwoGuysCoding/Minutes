@@ -14,20 +14,24 @@ namespace Minutes.Services
         public void SetAudioFormat(int sampleRate, int bits, int channels)
         {
             _waveInEvent.WaveFormat = new WaveFormat(sampleRate, bits, channels);
+            IsRecording = false;
         }
 
         public void StartRecording()
         {
             _waveInEvent.StartRecording();
+            IsRecording = true;
         }
 
         public void StopRecording()
         {
             _waveInEvent.StopRecording();
+            IsRecording = false;
         }
 
         public void Dispose()
         {
+            IsRecording = false;
             _waveInEvent.Dispose();
         }
 
@@ -35,5 +39,7 @@ namespace Minutes.Services
         {
             _waveInEvent.DataAvailable += new EventHandler<WaveInEventArgs>(recordingFunction);
         }
+
+        public bool IsRecording { get; private set; }
     }
 }

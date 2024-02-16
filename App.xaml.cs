@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Minutes.Core;
 using Minutes.MVVM.ViewModels;
 using Minutes.Services;
+using Minutes.Windows;
 
 namespace Minutes
 {
@@ -19,22 +20,32 @@ namespace Minutes
         {
             IServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton(provider => new MainWindow
+            services.AddSingleton<MainWindow>(provider => new MainWindow
             {
                 DataContext = provider.GetRequiredService<MainViewModel>()
             });
+            services.AddSingleton<AlwaysTopWidgetWindow>(provider => new AlwaysTopWidgetWindow
+            {
+                DataContext = provider.GetRequiredService<AlwaysTopWidgetMainViewModel>()
+            });
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<AlwaysTopWidgetMainViewModel>();
             services.AddSingleton<HomeViewModel>();
             services.AddSingleton<LoginViewModel>();
             services.AddSingleton<TranscriptionTextViewModel>();
             services.AddSingleton<SummaryTextViewModel>();
-            services.AddSingleton<AlwaysTopWidgetViewModel>();
+            services.AddSingleton<AlwaysTopWidgetHomeViewModel>();
             services.AddSingleton<EnhancedTranscriptionTextViewModel>();
-            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IMainNavigationService, NavigationService>();
             services.AddSingleton<ITextDisplayNavigationService, NavigationService>();
+            services.AddSingleton<IAlwaysTopWidgetNavigationService, NavigationService>();
+            services.AddSingleton<IWindowNavigationService, WindowNavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider =>
                 viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
+
+            services.AddSingleton<Func<Type, Window>>(serviceProvider =>
+                windowType => (Window)serviceProvider.GetRequiredService(windowType));
 
             services.AddSingleton<WasapiLoopBackCaptureRecordingDevice>();
             services.AddSingleton<WaveInEventRecordingDevice>();
@@ -49,7 +60,7 @@ namespace Minutes
                     _ => throw new KeyNotFoundException()
                 };
             });
-            services.AddTransient<IRecordingService, RecordingService>();
+            services.AddSingleton<IRecordingService, RecordingService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }
