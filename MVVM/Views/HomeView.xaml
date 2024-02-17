@@ -85,7 +85,7 @@
                     VerticalAlignment="Center"
                     BorderBrush="Black"
                     BorderThickness="0"
-                    Command="{Binding MinimilizeCommand}"
+                    Command="{Binding NavigateToAlwaysTopWidgetCommand}"
                     Content="-"
                     DockPanel.Dock="Right"
                     FontSize="20"

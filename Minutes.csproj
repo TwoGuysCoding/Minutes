@@ -35,6 +35,7 @@
     <None Remove="Fonts\Inter-Regular.ttf" />
     <None Remove="Fonts\Inter-SemiBold.ttf" />
     <None Remove="Fonts\Inter-Thin.ttf" />
+    <None Remove="Icons\MaximizeIcon.png" />
     <None Remove="Icons\Maximize.png" />
     <None Remove="Icons\Microphone.png" />
     <None Remove="Icons\MicrophoneCrossed.png" />
@@ -43,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\MaximizeIcon.png">
     <Resource Include="Icons\Maximize.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

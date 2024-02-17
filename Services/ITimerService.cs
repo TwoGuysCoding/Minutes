@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Minutes.Services
 {
-    internal interface ITextDisplayNavigationService : INavigationService
+    internal interface ITimerService
     {
+        void StartTimer();
+        void StopTimer();
+        void ResetTimer();
+
+        TimeSpan ElapsedTime { get; }
     }
 }

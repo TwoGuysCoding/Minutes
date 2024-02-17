@@ -27,6 +27,7 @@
                 Width="40"
                 Height="40"
                 Margin="5,0,0,0"
+                Command="{Binding ToggleRecordingCommand}"
                 Style="{StaticResource ColorButtonSquare}">
                 <Image
                     Width="20"
@@ -41,8 +42,22 @@
                 FontFamily="{StaticResource Inter}"
                 FontSize="25"
                 Foreground="{StaticResource TextForegroundPrimaryBrush}"
-                Text="00:00"
+                Text="{Binding RecordingTime}"
                 TextAlignment="Center" />
         </StackPanel>
+        <Button
+            Width="20"
+            Height="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Command="{Binding NavigateToHomeCommand}"
+            Style="{StaticResource TransparentButtonStyle}">
+            <Image
+                Width="15"
+                Height="15"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="pack://application:,,,/Icons/MaximizeIcon.png" />
+        </Button>
     </Grid>
 </UserControl>

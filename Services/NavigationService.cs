@@ -9,7 +9,7 @@ using Minutes.Core;
 
 namespace Minutes.Services
 {
-    public partial class NavigationService(Func<Type, ViewModel> viewModelFactory) : ObservableObject, INavigationService, ITextDisplayNavigationService
+    public partial class NavigationService(Func<Type, ViewModel> viewModelFactory) : ObservableObject, ITextDisplayNavigationService, IMainNavigationService, IAlwaysTopWidgetNavigationService
     {
 
         [ObservableProperty]
@@ -20,6 +20,7 @@ namespace Minutes.Services
         {
             var viewModel = viewModelFactory.Invoke(typeof(TViewModel));
             CurrentView = viewModel;
+            viewModel.OnNavigatedTo();
         }
     }
 }
