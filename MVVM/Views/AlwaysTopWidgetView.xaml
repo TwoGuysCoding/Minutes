@@ -42,7 +42,7 @@
                 FontFamily="{StaticResource Inter}"
                 FontSize="25"
                 Foreground="{StaticResource TextForegroundPrimaryBrush}"
-                Text="00:00"
+                Text="{Binding RecordingTime}"
                 TextAlignment="Center" />
         </StackPanel>
         <Button

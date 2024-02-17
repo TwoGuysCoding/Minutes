@@ -40,6 +40,7 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
         [ObservableProperty] private IMainNavigationService _mainNavigationService;
         private readonly IWindowNavigationService _windowNavigationService;
+        private readonly ITimerService _timerService;
 
         private int _selectedTabIndex;
 
@@ -79,7 +80,7 @@ namespace Minutes.MVVM.ViewModels
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService, 
-            IRecordingService recordingService, IWindowNavigationService windowNavigationService)
+            IRecordingService recordingService, IWindowNavigationService windowNavigationService, ITimerService timerService)
         {
             _windowNavigationService = windowNavigationService;
             TextDisplayNavigation = navigation;
@@ -94,6 +95,7 @@ namespace Minutes.MVVM.ViewModels
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
             _recordingService = recordingService;
             _windowNavigationService = windowNavigationService;
+            _timerService = timerService;
         }
 
         [RelayCommand]
@@ -146,20 +148,15 @@ namespace Minutes.MVVM.ViewModels
             {
                 _recordingService.StartRecording();
                 RecordButtonText = "Stop";
-                IsRecording = true;
-                _stopwatch.Start();
-                _dispatcher.Start();
-                Mediator.Instance.Send("SendRecordingStatus", true);
+                UpdateRecordingStatus();
+                _timerService.StartTimer();
             }
             else    // If recording, stop recording
             {
                 _recordingService.StopRecording();
                 RecordButtonText = "Start";
-                IsRecording = false;
-                _stopwatch.Stop();
-                _dispatcher.Stop();
-                Mediator.Instance.Send("SendRecordingStatus", false);
-                
+                UpdateRecordingStatus();
+                _timerService.StopTimer();
             }
         }
 
@@ -191,6 +188,11 @@ namespace Minutes.MVVM.ViewModels
         }
 
         public override void OnNavigatedTo()
+        {
+            UpdateRecordingStatus();
+        }
+
+        private void UpdateRecordingStatus()
         {
             IsRecording = _recordingService.IsRecording;
         }

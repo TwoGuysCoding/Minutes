@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Minutes.Core;
@@ -20,14 +21,19 @@ namespace Minutes.MVVM.ViewModels
     internal partial class AlwaysTopWidgetHomeViewModel : ViewModel
     {
         [ObservableProperty] private ImageSource _currentMicrophoneImage;
+        [ObservableProperty] private string _recordingTime = "00:00";
         private readonly IMainNavigationService _mainNavigationService;
         private readonly IWindowNavigationService _windowNavigationService;
         private readonly IRecordingService _recordingService;
+        private readonly ITimerService _timerService;
+
+        private readonly DispatcherTimer _dispatcher = new();
 
         private readonly ImageSource _microphoneImage;
         private readonly ImageSource _microphoneImageCrossed;
 
-        public AlwaysTopWidgetHomeViewModel(IMainNavigationService navigation, IWindowNavigationService windowNavigationService, IRecordingService recordingService)
+        public AlwaysTopWidgetHomeViewModel(IMainNavigationService navigation, IWindowNavigationService windowNavigationService,
+            IRecordingService recordingService, ITimerService timerService)
         {
             _mainNavigationService = navigation;
 
@@ -38,6 +44,11 @@ namespace Minutes.MVVM.ViewModels
             CurrentMicrophoneImage = _microphoneImage;
             _windowNavigationService = windowNavigationService;
             _recordingService = recordingService;
+            _timerService = timerService;
+
+            _dispatcher.Interval = TimeSpan.FromSeconds(.5f);
+            _dispatcher.Tick += (sender, args) => UpdateRecordingTime();
+            _dispatcher.Start();
         }
 
         private void UpdateMicrophoneImage(bool isRecording)
@@ -61,8 +72,20 @@ namespace Minutes.MVVM.ViewModels
         private void ToggleRecording()
         {
             _recordingService.ToggleRecording();
-            Debug.WriteLine(_recordingService.IsRecording);
             UpdateMicrophoneImage(_recordingService.IsRecording);
+            if (_recordingService.IsRecording)
+            {
+                _timerService.StartTimer();
+            }
+            else
+            {
+                _timerService.StopTimer();
+            }
+        }
+
+        private void UpdateRecordingTime()
+        {
+            RecordingTime = _timerService.ElapsedTime.ToString(@"mm\:ss");
         }
     }
 }
