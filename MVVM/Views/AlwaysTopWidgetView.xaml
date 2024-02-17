@@ -57,7 +57,7 @@
                 Height="15"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Source="pack://application:,,,/Icons/MaximizeIcon.png" />
+                Source="/Icons/MaximizeIcon.png" />
         </Button>
     </Grid>
 </UserControl>
