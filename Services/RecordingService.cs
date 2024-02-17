@@ -13,6 +13,18 @@ namespace Minutes.Services
     {
         private IRecordingDevice? _recordingDevice;
 
+        public void ToggleRecording()
+        {
+            if (IsRecording)
+            {
+                StopRecording();
+            }
+            else
+            {
+                StartRecording();
+            }
+        }
+
         public void DisposeRecorder()
         {
             _recordingDevice?.Dispose();

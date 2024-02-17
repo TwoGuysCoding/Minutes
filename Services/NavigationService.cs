@@ -20,6 +20,7 @@ namespace Minutes.Services
         {
             var viewModel = viewModelFactory.Invoke(typeof(TViewModel));
             CurrentView = viewModel;
+            viewModel.OnNavigatedTo();
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
         [ObservableProperty] private IMainNavigationService _mainNavigationService;
-        private IWindowNavigationService _windowNavigationService;
+        private readonly IWindowNavigationService _windowNavigationService;
 
         private int _selectedTabIndex;
 
@@ -188,6 +188,11 @@ namespace Minutes.MVVM.ViewModels
         private void DisplayTranscriptionText(string audioTranscript)
         {
             Mediator.Instance.Send("TranscriptionTextChanged", audioTranscript);
+        }
+
+        public override void OnNavigatedTo()
+        {
+            IsRecording = _recordingService.IsRecording;
         }
     }
 }

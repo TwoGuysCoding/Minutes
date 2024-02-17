@@ -27,6 +27,7 @@
                 Width="40"
                 Height="40"
                 Margin="5,0,0,0"
+                Command="{Binding ToggleRecordingCommand}"
                 Style="{StaticResource ColorButtonSquare}">
                 <Image
                     Width="20"

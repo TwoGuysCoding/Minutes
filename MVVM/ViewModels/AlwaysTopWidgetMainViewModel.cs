@@ -17,13 +17,16 @@ namespace Minutes.MVVM.ViewModels
         public AlwaysTopWidgetMainViewModel(IAlwaysTopWidgetNavigationService alwaysTopWidgetNavigationService)
         {
             AlwaysTopWidgetNavigationService = alwaysTopWidgetNavigationService;
-            NavigateToAlwaysTopWidgetHomeView();
         }
 
-        [RelayCommand]
         private void NavigateToAlwaysTopWidgetHomeView()
         {
             AlwaysTopWidgetNavigationService.NavigateTo<AlwaysTopWidgetHomeViewModel>();
+        }
+
+        public override void OnNavigatedTo()
+        {
+            NavigateToAlwaysTopWidgetHomeView();
         }
     }
 }

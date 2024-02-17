@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Minutes.Core;
 
 namespace Minutes.Services
 {
@@ -13,6 +14,8 @@ namespace Minutes.Services
         public void ShowWindow<TWindowType>() where TWindowType : Window
         {
             var window = windowFactory(typeof(TWindowType));
+            var viewModel = window.DataContext as ViewModel;
+            viewModel?.OnNavigatedTo();
             window.Show();
         }
 

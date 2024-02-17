@@ -12,6 +12,7 @@ namespace Minutes.Services
     {
         void StartRecording();
         void StopRecording();
+        void ToggleRecording();
         void DisposeRecorder();
         void SetAudioFormat(int sampleRate, int bits, int channels);
         void ChangeRecordingDevice(RecordingDeviceType recordingDeviceType);

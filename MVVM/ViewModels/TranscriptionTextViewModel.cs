@@ -30,9 +30,10 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine("Tried to send null object to transcriptionViewModel");
                 return;
             }
-            _recentTranscription += text as string + " ";
-            TranscriptionText += text as string;
-            if (_recentTranscription.Length <= 500) return;
+            _recentTranscription += text as string;
+            _recentTranscription += " ";
+            TranscriptionText += (string)text + " ";
+            if (_recentTranscription.Length <= 400) return;
 
             SendTranscriptionTextForEnhancement(_recentTranscription);
             _recentTranscription = string.Empty;
