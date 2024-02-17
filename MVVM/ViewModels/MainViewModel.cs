@@ -12,9 +12,6 @@ namespace Minutes.MVVM.ViewModels
     internal partial class MainViewModel : ViewModel
     {
         [ObservableProperty] private IMainNavigationService _mainNavigationService;
-        [ObservableProperty] private bool _isAlwaysTopWindow;
-        [ObservableProperty] private SizeToContent _sizeToContentState = SizeToContent.WidthAndHeight;
-        [ObservableProperty] private ResizeMode _currentResizeMode = ResizeMode.CanResizeWithGrip;
 
         public MainViewModel(IMainNavigationService navService)
         {
@@ -34,7 +31,7 @@ namespace Minutes.MVVM.ViewModels
             MainNavigationService.NavigateTo<LoginViewModel>();
         }
 
-        public override void OnNavigatedTo()    // when the login screen will be implemented, this will be very likely changed
+        public override void OnNavigatedTo()    // when the login screen will be implemented, this is likely to change
         {
             NavigateToHome();
         }
