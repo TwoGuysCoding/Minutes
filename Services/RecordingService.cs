@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Minutes.Core;
+﻿using Minutes.Core;
 using NAudio.Wave;
 
 namespace Minutes.Services
@@ -47,7 +42,7 @@ namespace Minutes.Services
 
         public void StopRecording()
         {
-            _recordingDevice?.StopRecording();   
+            _recordingDevice?.StopRecording();
         }
 
         public void InitializeRecordingHandler(Action<object?, WaveInEventArgs> recordingFunction)

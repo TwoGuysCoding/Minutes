@@ -86,7 +86,7 @@ namespace Minutes.MVVM.Models
             }
             catch (Exception exception)
             {
-                Debug.WriteLine($"Failed to send data to WebSocket: {exception.Message} in {exception.Source}");    
+                Debug.WriteLine($"Failed to send data to WebSocket: {exception.Message} in {exception.Source}");
             }
         }
 

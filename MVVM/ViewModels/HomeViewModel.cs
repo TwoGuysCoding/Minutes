@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Threading;
 using Minutes.Core;
 using Minutes.MVVM.Models;
 using Minutes.Services;
-using NAudio.Wave;
 using Minutes.Utils;
 using Minutes.Windows;
+using NAudio.Wave;
+using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -79,7 +73,7 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService, 
+        public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService,
             IRecordingService recordingService, IWindowNavigationService windowNavigationService, ITimerService timerService)
         {
             _windowNavigationService = windowNavigationService;

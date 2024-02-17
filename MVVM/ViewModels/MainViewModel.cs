@@ -1,13 +1,8 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Minutes.Core;
-using Minutes.MVVM.Models;
 using Minutes.Services;
-using Minutes.Utils;
-using NAudio.Wave;
+using System.Windows;
 
 namespace Minutes.MVVM.ViewModels
 {

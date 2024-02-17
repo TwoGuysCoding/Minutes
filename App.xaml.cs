@@ -1,11 +1,9 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Minutes.Core;
 using Minutes.MVVM.ViewModels;
 using Minutes.Services;
 using Minutes.Windows;
+using System.Windows;
 
 namespace Minutes
 {

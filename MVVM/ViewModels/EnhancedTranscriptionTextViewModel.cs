@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Minutes.Core;
 using Minutes.Utils;
 using Newtonsoft.Json;
@@ -17,7 +12,7 @@ namespace Minutes.MVVM.ViewModels
         public EnhancedTranscriptionTextViewModel()
         {
             Mediator.Instance.Register("SendEnhancedTranscription", DisplayEnhancedTranscriptionText);
-        }   
+        }
 
         private void DisplayEnhancedTranscriptionText(object? text)
         {

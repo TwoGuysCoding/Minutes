@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Minutes.Services
+﻿namespace Minutes.Services
 {
     internal interface ITextDisplayNavigationService : INavigationService { }
     internal interface IMainNavigationService : INavigationService { }
