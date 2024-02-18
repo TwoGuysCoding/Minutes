@@ -13,7 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using Minutes.Services;
+using Minutes.Utils;
 
 namespace Minutes.MVVM.Views
 {
@@ -22,12 +24,25 @@ namespace Minutes.MVVM.Views
     /// </summary>
     public partial class LoginView : UserControl, IPasswordContainer
     {
+        private SecureString _password = new SecureString();
         public LoginView()
         {
             InitializeComponent();
+            PwdLogin.PasswordChanged += HandlePasswordChanged;
+            PwdReg.PasswordChanged += HandlePasswordChanged;
+            
+        }
+ 
+        
+        public void HandlePasswordChanged(object sender, EventArgs e)
+        {
+            if (sender is PasswordBox passwordBox)
+            {
+                _password = passwordBox.SecurePassword; 
+            }
         }
 
-        public SecureString Password => PwdReg.SecurePassword;
+        public SecureString Password => _password;
 
         public void Dispose()
         {
