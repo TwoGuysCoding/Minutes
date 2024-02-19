@@ -13,7 +13,6 @@ using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security;
 using Minutes.Services;
-using Minutes.Core;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -22,6 +21,7 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private string? _message = string.Empty;
         [ObservableProperty] private string? _mail = string.Empty;
         [ObservableProperty] private int _tabIndex = 0;
+        private IMainNavigationService _mainNavigationService;
 
 
         [RelayCommand]
@@ -30,10 +30,15 @@ namespace Minutes.MVVM.ViewModels
             RegisterUser(o);
         }
 
-        public async void RegisterUser(Object o)
+        public LoginViewModel(IMainNavigationService navService)
         {
-            SecureString? _password = (o as IPasswordContainer)?.Password;
-            if (_mail == null || _password == null)
+            _mainNavigationService = navService;
+        }
+
+        public async void RegisterUser(object o)
+        {
+            var password = (o as IPasswordContainer)?.Password;
+            if (Mail == null || password == null)
             {
                 Debug.WriteLine("Username or password is null");
                 return;
@@ -42,14 +47,13 @@ namespace Minutes.MVVM.ViewModels
             {
                 using var httpClient = new HttpClient();
                 var jsonContent = new StringContent(
-                    JsonConvert.SerializeObject(new { email = _mail, password = new System.Net.NetworkCredential(string.Empty, _password).Password }),
+                    JsonConvert.SerializeObject(new { email = Mail, password = new System.Net.NetworkCredential(string.Empty, password).Password }),
                     Encoding.UTF8,
                     "application/json");
                 var response = await httpClient.PostAsync("http://localhost:4000/api/register", jsonContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    string? password = new System.Net.NetworkCredential(string.Empty, _password).Password;
-                    Debug.WriteLine($"Registration successfull: {_mail}");
+                    Debug.WriteLine($"Registration successfull: {Mail}");
                     TabIndex = 0;
                     Message = "Account created successfully! Please check your mail!";
                 }
@@ -70,26 +74,25 @@ namespace Minutes.MVVM.ViewModels
             LoginUser(o);
         }
 
-        public async void LoginUser(Object o)
+        public async void LoginUser(object o)
         {
-            SecureString? _password = (o as IPasswordContainer)?.Password;
-            if (_mail == null || _password == null)
+            var password = (o as IPasswordContainer)?.Password;
+            if (Mail == null || password == null)
             {
                 Debug.WriteLine("Username or password is null");
                 return;
             }
             try
-            {
-                string? password = new System.Net.NetworkCredential(string.Empty, _password).Password;
+            { 
                 using var httpClient = new HttpClient();
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(
-                    new { email = _mail, password = new System.Net.NetworkCredential(string.Empty, _password).Password }), Encoding.UTF8, "application/json");
+                    new { email = Mail, password = new System.Net.NetworkCredential(string.Empty, password).Password }), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("http://localhost:4000/api/create_token", jsonContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine($"Login successfull: {_mail}");
-                    TabIndex = 0;
+                    Debug.WriteLine($"Login successfull: {Mail}");
                     Message = "Login successfull!";
+                    _mainNavigationService.NavigateTo<HomeViewModel>();
                 }
                 else
                 {
