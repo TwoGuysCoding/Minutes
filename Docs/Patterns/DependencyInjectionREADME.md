@@ -37,7 +37,7 @@ public class YourViewModel : ViewModel
 	}
 
 	[RelayCommand]
-public void NavigateToYourViewModel()
+	public void NavigateToYourViewModel()
 	{
 		_navigationService.NavigateTo<YourViewModel>();
 	}
