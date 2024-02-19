@@ -16,7 +16,7 @@ namespace Minutes.MVVM.ViewModels
         public MainViewModel(IMainNavigationService navService)
         {
             MainNavigationService = navService;
-            NavigateToLogin();
+            NavigateToHome();
         }
 
         [RelayCommand]
