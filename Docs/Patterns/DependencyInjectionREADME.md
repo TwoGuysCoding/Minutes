@@ -25,13 +25,21 @@ This will register your ViewModel in the DI container.
 
 ### 4. Using the INavigationSevice
 To use the INavigationService you need to inject it into your ViewModel. You can do this by adding a constructor to your ViewModel that takes an INavigationService as a parameter. Then you can use the INavigationService to navigate to your ViewModel.
+However this project utilizes many navigation services (for example a subsystem for the transcription text) so you're gonna be using
+an interface that derives from INavigationService. However carefully consider if adding a new navigation service is necessary.
+Currently the project inculdes the following navigation services:
+ - IMainNavigationService - the main nav service used to navigate in the mian widnow
+ - ITranscriptionNavigationService - a nav service displayed inside the transcription window in the home view
+ - IAlwaysTopWidgetNavigationService - a service for navigation in the always top widget
 
+ When writing a new ViewModel you should consider if you need to use one of the existing navigation services or if you need to create a new one.
+ Here is an example of usage of the IMainNavigationService:
 ```csharp
 public class YourViewModel : ViewModel
 {
-	private readonly INavigationService _navigationService;
+	private readonly IMainNavigationService _navigationService;
 
-	public YourViewModel(INavigationService navigationService)
+	public YourViewModel(IMainNavigationService navigationService)
 	{
 		_navigationService = navigationService;
 	}
