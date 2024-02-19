@@ -23,18 +23,28 @@ services.AddSingleton<YourViewModel>();
 ```
 This will register your ViewModel in the DI container.
 
-### 4. Add your ViewModel to the MainViewModel
-In the MainViewModel, add a command that will navigate to your ViewModel. The command should look like this:
+### 4. Using the INavigationSevice
+To use the INavigationService you need to inject it into your ViewModel. You can do this by adding a constructor to your ViewModel that takes an INavigationService as a parameter. Then you can use the INavigationService to navigate to your ViewModel.
+
 ```csharp
-[RelayCommand]
-public void NavigateToYourViewModel()
+public class YourViewModel : ViewModel
 {
-	Navigation.NavigateTo<YourViewModel>();
+	private readonly INavigationService _navigationService;
+
+	public YourViewModel(INavigationService navigationService)
+	{
+		_navigationService = navigationService;
+	}
+
+	[RelayCommand]
+public void NavigateToYourViewModel()
+	{
+		_navigationService.NavigateTo<YourViewModel>();
+	}
 }
 ```
-This will create a YourViewModelCommand that can be assinged to for example button. Instead of YourViewModel, use the name of your ViewModel.
+Here the NavigateToYourViewModel method will navigate to the YourViewModel. Now you can bind this method to a button in the view and when the button is clicked the app will navigate to the YourViewModel.
 
-Now you can bind the command to a button in the MainView. When the button is clicked, the app will navigate to your ViewModel.
 
 ### 5. Closing remarks
 Currently the in the MainWindow.xaml there is a line:
