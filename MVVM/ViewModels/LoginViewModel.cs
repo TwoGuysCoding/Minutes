@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security;
 using Minutes.Services;
+using Minutes.Core;
 
 namespace Minutes.MVVM.ViewModels
 {

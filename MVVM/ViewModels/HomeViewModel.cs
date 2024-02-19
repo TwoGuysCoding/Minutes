@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Threading;
 using Minutes.Core;
 using Minutes.MVVM.Models;
 using Minutes.Services;
-using NAudio.Wave;
 using Minutes.Utils;
+using Minutes.Windows;
+using NAudio.Wave;
+using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -26,7 +21,7 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// The audio recorder used for recording audio.
         /// </summary>
-        private AudioRecorder _audioRecorder = new(16000, 16, 1);
+        private readonly IRecordingService _recordingService;
 
 
         /// <summary>
@@ -37,8 +32,9 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private string _summaryText = "The summary text will be displayed here";
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
-
-        private double _recordingTime;
+        [ObservableProperty] private IMainNavigationService _mainNavigationService;
+        private readonly IWindowNavigationService _windowNavigationService;
+        private readonly ITimerService _timerService;
 
         private int _selectedTabIndex;
 
@@ -77,27 +73,35 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public HomeViewModel(ITextDisplayNavigationService navigation)
+        public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService,
+            IRecordingService recordingService, IWindowNavigationService windowNavigationService, ITimerService timerService)
         {
+            _windowNavigationService = windowNavigationService;
             TextDisplayNavigation = navigation;
+            _mainNavigationService = mainNavigationService;
+            _recordingService = recordingService;
+            _recordingService.ChangeRecordingDevice(RecordingDeviceType.WasapiLoopBackCapture);
+            _recordingService.SetAudioFormat(16000, 16, 1);
+            _recordingService.InitializeRecordingHandler(RecordingHandler);
             NavigateToTranscriptionText();
             _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
+            _recordingService = recordingService;
+            _windowNavigationService = windowNavigationService;
+            _timerService = timerService;
         }
 
         [RelayCommand]
         private async Task LoadMainView()
         {
             await _transcriptionWebsocketManager.OpenConnectionAsync();
-            _audioRecorder = new AudioRecorder(16000, 16, 1);
-            _audioRecorder.InitializeRecorder(RecordingHandler);
         }
 
         [RelayCommand]
         private async Task UnloadMainView()
         {
-            _audioRecorder.Dispose();
+            _recordingService.DisposeRecorder();
             await _transcriptionWebsocketManager.CloseConnectionAsync();
         }
 
@@ -105,7 +109,13 @@ namespace Minutes.MVVM.ViewModels
         private void NavigateToSummaryText()
         {
             TextDisplayNavigation.NavigateTo<SummaryTextViewModel>();
-            Debug.WriteLine("Changed to summary view");
+        }
+
+        [RelayCommand]
+        private void NavigateToAlwaysTopWidget()
+        {
+            _windowNavigationService.ShowWindow<AlwaysTopWidgetWindow>();
+            _windowNavigationService.CloseWindow<MainWindow>();
         }
 
         [RelayCommand]
@@ -130,22 +140,17 @@ namespace Minutes.MVVM.ViewModels
             // If not recording, start recording
             if (!IsRecording)
             {
-                _audioRecorder.StartRecording();
+                _recordingService.StartRecording();
                 RecordButtonText = "Stop";
-                IsRecording = true;
-                _stopwatch.Start();
-                _dispatcher.Start();
-                Mediator.Instance.Send("SendRecordingStatus", true);
+                UpdateRecordingStatus();
+                _timerService.StartTimer();
             }
             else    // If recording, stop recording
             {
-                _audioRecorder.StopRecording();
+                _recordingService.StopRecording();
                 RecordButtonText = "Start";
-                IsRecording = false;
-                _stopwatch.Stop();
-                _dispatcher.Stop();
-                Mediator.Instance.Send("SendRecordingStatus", false);
-                
+                UpdateRecordingStatus();
+                _timerService.StopTimer();
             }
         }
 
@@ -174,6 +179,16 @@ namespace Minutes.MVVM.ViewModels
         private void DisplayTranscriptionText(string audioTranscript)
         {
             Mediator.Instance.Send("TranscriptionTextChanged", audioTranscript);
+        }
+
+        public override void OnNavigatedTo()
+        {
+            UpdateRecordingStatus();
+        }
+
+        private void UpdateRecordingStatus()
+        {
+            IsRecording = _recordingService.IsRecording;
         }
     }
 }

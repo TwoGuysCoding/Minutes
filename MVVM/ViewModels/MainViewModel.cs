@@ -1,23 +1,19 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Minutes.MVVM.Models;
+using Minutes.Core;
 using Minutes.Services;
-using NAudio.Wave;
+using System.Windows;
 
 namespace Minutes.MVVM.ViewModels
 {
     /// <summary>
     /// Main view model for the application. Contains all the bindings and commands for the main window.
     /// </summary>
-    internal partial class MainViewModel : ObservableObject
+    internal partial class MainViewModel : ViewModel
     {
-        [ObservableProperty]
-        private INavigationService _mainNavigationService;
+        [ObservableProperty] private IMainNavigationService _mainNavigationService;
 
-        public MainViewModel(INavigationService navService)
+        public MainViewModel(IMainNavigationService navService)
         {
             MainNavigationService = navService;
             NavigateToLogin();
@@ -35,10 +31,9 @@ namespace Minutes.MVVM.ViewModels
             MainNavigationService.NavigateTo<LoginViewModel>();
         }
 
-        [RelayCommand]
-        private void NavigateToAlwaysTopWidget()
+        public override void OnNavigatedTo()    // when the login screen will be implemented, this is likely to change
         {
-            MainNavigationService.NavigateTo<AlwaysTopWidgetViewModel>();
+            NavigateToHome();
         }
     }
 }

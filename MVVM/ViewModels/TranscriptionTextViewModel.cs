@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Minutes.Core;
 using Minutes.Utils;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Text;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -30,9 +26,10 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine("Tried to send null object to transcriptionViewModel");
                 return;
             }
-            _recentTranscription += text as string + " ";
-            TranscriptionText += text as string;
-            if (_recentTranscription.Length <= 500) return;
+            _recentTranscription += text as string;
+            _recentTranscription += " ";
+            TranscriptionText += (string)text + " ";
+            if (_recentTranscription.Length <= 400) return;
 
             SendTranscriptionTextForEnhancement(_recentTranscription);
             _recentTranscription = string.Empty;

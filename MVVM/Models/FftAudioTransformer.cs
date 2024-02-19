@@ -1,5 +1,5 @@
-﻿using System.Numerics;
-using MathNet.Numerics.IntegralTransforms;
+﻿using MathNet.Numerics.IntegralTransforms;
+using System.Numerics;
 
 namespace Minutes.MVVM.Models
 {
