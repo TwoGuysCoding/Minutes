@@ -12,6 +12,7 @@ namespace Minutes.MVVM.ViewModels
         public EnhancedTranscriptionTextViewModel()
         {
             Mediator.Instance.Register("SendEnhancedTranscription", DisplayEnhancedTranscriptionText);
+            Mediator.Instance.Register("GetSummary", SendEnhancedTranscriptionTextForSummary);
         }
 
         private void DisplayEnhancedTranscriptionText(object? text)
@@ -22,6 +23,11 @@ namespace Minutes.MVVM.ViewModels
             {
                 EnhancedTranscriptionText += value;
             }
+        }
+
+        private void SendEnhancedTranscriptionTextForSummary(object? text)
+        {
+            Mediator.Instance.Send("SendEnhancedTranscriptionForSummary", EnhancedTranscriptionText);
         }
     }
 }

@@ -21,7 +21,7 @@
             <ScrollViewer.Resources>
                 <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
             </ScrollViewer.Resources>
-            <TextBox Style="{StaticResource TransparentTextBox}" Text="The summary text will be here" />
+            <TextBox Style="{StaticResource TransparentTextBox}" Text="{Binding SummaryText}" />
         </ScrollViewer>
     </Grid>
 </UserControl>
