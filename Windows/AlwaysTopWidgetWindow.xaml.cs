@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace Minutes.Windows
 {
@@ -10,6 +11,11 @@ namespace Minutes.Windows
         public AlwaysTopWidgetWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_DragOver(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            DragMove();
         }
     }
 }
