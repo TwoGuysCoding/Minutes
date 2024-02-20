@@ -13,9 +13,9 @@ When the window loads it connects to the websocket server. When the user clicks 
 4. [Overview of Mediator pattern](./Docs/Patterns/MediatorREADME.md)
 
 # To do list
-- [ ] Fix a bug which causes the main window to strech to crazy sizes when recording using always top widget
+- [X] Fix a bug which causes the main window to strech to crazy sizes when recording using always top widget
 - [ ] Add a feature to save the transcribed text to a file
-- [ ] Add a feature to change the audio source
+- [ ] Add a control to change the audio source
 - [	] Remove default window border
 
 If you something comes to your mind, feel free to add it to the list.
