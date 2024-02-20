@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Minutes.Core;
 using Minutes.Utils;
 using Newtonsoft.Json;
@@ -15,6 +16,11 @@ namespace Minutes.MVVM.ViewModels
         public SummaryTextViewModel()
         {
             Mediator.Instance.Register("SendEnhancedTranscriptionForSummary", CreateSummaryText);
+        }
+
+        [RelayCommand]
+        private void NavigateToTranscriptionText()
+        {
             Mediator.Instance.Send("GetSummary");
         }
 
@@ -31,7 +37,11 @@ namespace Minutes.MVVM.ViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    SummaryText = responseString;
+                    var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString);
+                    if (jsonObject != null && jsonObject.TryGetValue("text", out var value))
+                    {
+                        SummaryText = value;
+                    }
                     Debug.WriteLine($"Transcription sent successfully: {responseString}");
                 }
                 else

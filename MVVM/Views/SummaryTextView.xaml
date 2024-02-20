@@ -23,5 +23,17 @@
             </ScrollViewer.Resources>
             <TextBox Style="{StaticResource TransparentTextBox}" Text="{Binding SummaryText}" />
         </ScrollViewer>
+        <Button
+            Width="70"
+            Height="70"
+            Margin="0,0,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding NavigateToTranscriptionTextCommand}"
+            Content="Generate"
+            FontFamily="{StaticResource Inter}"
+            FontSize="13"
+            FontWeight="Light"
+            Style="{StaticResource TransparentButtonStyleTrans}" />
     </Grid>
 </UserControl>
