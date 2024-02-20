@@ -12,7 +12,9 @@ namespace Minutes.MVVM.ViewModels
     {
         [ObservableProperty] private string? _transcriptionText = string.Empty;
 
+        private string? _transcriptionStorage;
         private string? _recentTranscription;
+        private string? _partialTranscription;
 
         public TranscriptionTextViewModel()
         {
@@ -26,13 +28,23 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine("Tried to send null object to transcriptionViewModel");
                 return;
             }
-            _recentTranscription += text as string;
-            _recentTranscription += " ";
-            TranscriptionText += (string)text + " ";
-            if (_recentTranscription.Length <= 400) return;
 
-            SendTranscriptionTextForEnhancement(_recentTranscription);
-            _recentTranscription = string.Empty;
+            var response = text as string ?? throw new NullReferenceException("Response is null");
+            var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(response!);
+            if (!jsonObject!.TryGetValue("type", out var type)) return;
+            switch (type)
+            {
+                case "partial":
+                    _partialTranscription = jsonObject["text"];
+                    break;
+                case "final":
+                    _recentTranscription = jsonObject["text"];
+                    _partialTranscription = null;
+                    _transcriptionStorage += _recentTranscription;
+                    SendTranscriptionTextForEnhancement(_recentTranscription);
+                    break;
+            }
+            TranscriptionText = _transcriptionStorage + _partialTranscription;
         }
 
         private async void SendTranscriptionTextForEnhancement(string? text)

@@ -84,7 +84,7 @@ namespace Minutes.MVVM.ViewModels
             _recordingService.SetAudioFormat(16000, 16, 1);
             _recordingService.InitializeRecordingHandler(RecordingHandler);
             NavigateToTranscriptionText();
-            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_vosk/en", DisplayTranscriptionText);
+            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_aai", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
             _recordingService = recordingService;
