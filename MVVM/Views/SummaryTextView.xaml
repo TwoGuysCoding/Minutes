@@ -29,7 +29,7 @@
             Margin="0,0,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding NavigateToTranscriptionTextCommand}"
+            Command="{Binding GenerateSummaryCommand}"
             Content="Generate"
             FontFamily="{StaticResource Inter}"
             FontSize="13"
