@@ -10,6 +10,7 @@
     Title="MainWindow"
     AllowsTransparency="False"
     Background="White"
+    MouseLeftButtonDown="Window_DragOver"
     WindowStartupLocation="CenterScreen"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">

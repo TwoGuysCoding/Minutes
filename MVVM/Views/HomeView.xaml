@@ -68,7 +68,7 @@
                     VerticalAlignment="Center"
                     BorderBrush="Black"
                     BorderThickness="0"
-                    Command="{Binding MinimilizeCommand}"
+                    Command="{Binding FullScreenCommand}"
                     DockPanel.Dock="Right"
                     FontWeight="Light"
                     Foreground="{StaticResource White}"
@@ -125,11 +125,11 @@
                 <ListBox
                     Width="250"
                     Background="Transparent"
-                    BorderThickness="0">
-                    <ListBoxItem FontSize="15" Style="{StaticResource ListItemStyle}">Transcription 1</ListBoxItem>
-                    <ListBoxItem FontSize="15" Style="{StaticResource ListItemStyle}">Transcription 2</ListBoxItem>
-                    <ListBoxItem FontSize="15" Style="{StaticResource ListItemStyle}">Transcription 3</ListBoxItem>
-                </ListBox>
+                    BorderThickness="0"
+                    ItemContainerStyle="{StaticResource ListItemStyle}"
+                    ItemsSource="{Binding TranscriptionFiles}"
+                    SelectedItem="{Binding SelectedFile, Mode=TwoWay}" />
+
             </StackPanel>
         </Grid>
 
@@ -209,12 +209,30 @@
                 Margin="10"
                 Background="Transparent"
                 Orientation="Horizontal">
-                <Image
-                    Width="40"
-                    Height="40"
-                    Source="/Icons/UserIcon.png" />
+                <Border
+                    Width="45"
+                    Height="45"
+                    Margin="10,0,0,0"
+                    Background="White"
+                    CornerRadius="25">
+                    <Image
+                        Width="45"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ClipToBounds="True"
+                        Source="/Icons/UserIcon.png">
+                        <Image.Clip>
+                            <RectangleGeometry
+                                RadiusX="25"
+                                RadiusY="25"
+                                Rect="0 0 45 45" />
+                        </Image.Clip>
+                    </Image>
+                </Border>
                 <TextBlock
                     Height="40"
+                    Margin="10,0,0,0"
                     Padding="10,5,0,0"
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource Inter}"
@@ -233,6 +251,7 @@
                 Margin="20"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
+                <!--           SearchBar Control
                 <Border
                     Height="50"
                     Margin="10"
@@ -271,6 +290,7 @@
                     </StackPanel>
 
                 </Border>
+                -->
             </StackPanel>
         </Grid>
 

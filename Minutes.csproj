@@ -136,4 +136,8 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Trans\" />
+  </ItemGroup>
+
 </Project>

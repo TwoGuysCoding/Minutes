@@ -11,5 +11,10 @@ namespace Minutes
         {
             InitializeComponent();
         }
+
+        private void Window_DragOver(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

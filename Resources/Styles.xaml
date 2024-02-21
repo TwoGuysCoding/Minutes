@@ -75,7 +75,7 @@
                                     x:Name="SwitchThumb"
                                     Width="30"
                                     Height="30"
-                                    Margin="2"
+                                    Margin="3"
                                     HorizontalAlignment="Left"
                                     Fill="{StaticResource White}"
                                     RadiusX="20"
@@ -309,6 +309,8 @@
     <Style x:Key="ListItemStyle" TargetType="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
