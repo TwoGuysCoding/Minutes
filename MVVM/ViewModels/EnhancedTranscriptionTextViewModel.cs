@@ -20,11 +20,7 @@ namespace Minutes.MVVM.ViewModels
 
         private void DisplayEnhancedTranscriptionText(string text)
         {
-            var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
-            if (jsonObject != null && jsonObject.TryGetValue("text", out var value))
-            {
-                EnhancedTranscriptionText += value;
-            }
+            EnhancedTranscriptionText = text;
         }
     }
 }

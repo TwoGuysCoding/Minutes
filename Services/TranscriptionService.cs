@@ -92,7 +92,11 @@ namespace Minutes.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    EnhancedTranscriptionText = responseString;
+                    var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString);
+                    if (jsonObject != null && jsonObject.TryGetValue("text", out var value))
+                    {
+                        EnhancedTranscriptionText = value;
+                    }
                     Debug.WriteLine($"Transcription sent successfully: {responseString}");
                 }
                 else

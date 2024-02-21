@@ -37,8 +37,8 @@ namespace Minutes.MVVM.ViewModels
                 case "final":
                     _recentTranscription = jsonObject["text"];
                     _partialTranscription = null;
-                    _transcriptionStorage += _recentTranscription;
-                    _transcriptionService.AppendEnhancedTranscriptionText(_recentTranscription);
+                    _transcriptionStorage += _recentTranscription + '\n';
+                    _transcriptionService.AppendEnhancedTranscriptionText(TranscriptionText ?? throw new InvalidOperationException());
                     break;
             }
             TranscriptionText = _transcriptionStorage + _partialTranscription;
