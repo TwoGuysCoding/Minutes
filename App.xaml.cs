@@ -61,6 +61,7 @@ namespace Minutes
             services.AddSingleton<IRecordingService, RecordingService>();
 
             services.AddSingleton<ITimerService, TimerService>();
+            services.AddSingleton<ITranscriptionService, TranscriptionService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }

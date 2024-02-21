@@ -13,10 +13,7 @@ namespace Minutes.MVVM.ViewModels
 {
     internal partial class HomeViewModel : ViewModel
     {
-        /// <summary>
-        /// The WebSocket manager used for managing WebSocket connections.
-        /// </summary>
-        private readonly WebsocketManager _transcriptionWebsocketManager;
+        //private readonly WebsocketManager _transcriptionWebsocketManager;
 
         /// <summary>
         /// The audio recorder used for recording audio.
@@ -35,6 +32,7 @@ namespace Minutes.MVVM.ViewModels
         [ObservableProperty] private IMainNavigationService _mainNavigationService;
         private readonly IWindowNavigationService _windowNavigationService;
         private readonly ITimerService _timerService;
+        private readonly ITranscriptionService _transcriptionService;
 
         private int _selectedTabIndex;
 
@@ -74,7 +72,8 @@ namespace Minutes.MVVM.ViewModels
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService,
-            IRecordingService recordingService, IWindowNavigationService windowNavigationService, ITimerService timerService)
+            IRecordingService recordingService, IWindowNavigationService windowNavigationService, ITimerService timerService,
+            ITranscriptionService transcriptionService)
         {
             _windowNavigationService = windowNavigationService;
             TextDisplayNavigation = navigation;
@@ -84,25 +83,28 @@ namespace Minutes.MVVM.ViewModels
             _recordingService.SetAudioFormat(16000, 16, 1);
             _recordingService.InitializeRecordingHandler(RecordingHandler);
             NavigateToTranscriptionText();
-            _transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_aai", DisplayTranscriptionText);
+            //_transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_aai", DisplayTranscriptionText);
             _dispatcher.Tick += (s, a) => UpdateStopWatch();
             _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
             _recordingService = recordingService;
             _windowNavigationService = windowNavigationService;
             _timerService = timerService;
+            _transcriptionService = transcriptionService;
         }
 
         [RelayCommand]
         private async Task LoadMainView()
         {
-            await _transcriptionWebsocketManager.OpenConnectionAsync();
+            //await _transcriptionWebsocketManager.OpenConnectionAsync();
+            await _transcriptionService.OpenConnectionForTranscription();
         }
 
         [RelayCommand]
         private async Task UnloadMainView()
         {
             _recordingService.DisposeRecorder();
-            await _transcriptionWebsocketManager.CloseConnectionAsync();
+            //await _transcriptionWebsocketManager.CloseConnectionAsync();
+            await _transcriptionService.CloseConnectionForTranscription();
         }
 
         [RelayCommand]
@@ -162,12 +164,11 @@ namespace Minutes.MVVM.ViewModels
         private async void RecordingHandler(object? sender, WaveInEventArgs e)
         {
             // Send the audio data to the server
-            if (!_transcriptionWebsocketManager.IsOpen()) return;
             var buffer = new byte[e.BytesRecorded];
             Buffer.BlockCopy(e.Buffer, 0, buffer, 0, e.BytesRecorded);
             var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 120, 0.16f);
             AudioLevels = audioLevels;
-            await _transcriptionWebsocketManager.SendDataAsync(buffer);
+            await _transcriptionService.SendData(buffer);
         }
 
         private void UpdateStopWatch()
