@@ -65,7 +65,7 @@
                 Width="250"
                 Height="300"
                 Background="{StaticResource BackgroundSecondaryBrush}"
-                CornerRadius="20">
+                CornerRadius="10">
 
                 <TabControl
                     Padding="1"
@@ -74,8 +74,16 @@
                     BorderThickness="0"
                     SelectedIndex="{Binding TabIndex}"
                     TabStripPlacement="Top">
+
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabPanel}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </TabControl.Resources>
                     <TabItem
                         x:Name="Login"
+                        Width="123"
+                        Margin="0,0,1,0"
                         Header="Log In"
                         Style="{StaticResource TabItemStyle}">
                         <StackPanel
@@ -134,7 +142,11 @@
                                 TextWrapping="WrapWithOverflow" />
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Register" Style="{StaticResource TabItemStyle}">
+                    <TabItem
+                        Width="123"
+                        Margin="1,0,0,0"
+                        Header="Register"
+                        Style="{StaticResource TabItemStyle}">
                         <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"

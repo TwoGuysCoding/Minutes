@@ -28,14 +28,15 @@
     <UserControl.Background>
         <SolidColorBrush Color="{StaticResource BackgroundPrimary}" />
     </UserControl.Background>
-    <Grid>
+    <Grid MinWidth="1100">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="300" MinWidth="200" />
             <ColumnDefinition Width="*" MinWidth="500" />
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="300" MinWidth="200" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
@@ -141,19 +142,25 @@
                 </Grid.RowDefinitions>
                 <Border
                     Grid.Row="1"
-                    Margin="4,9,4,0"
+                    Margin="4,18,4,0"
                     Background="{StaticResource BackgroundSecondaryBrush}"
                     CornerRadius="15" />
                 <TabControl
                     Grid.Row="0"
                     Grid.RowSpan="2"
-                    Margin="20,2,2,2"
+                    Margin="2,2,2,2"
                     Padding="1"
                     HorizontalAlignment="Stretch"
                     Background="Transparent"
                     BorderThickness="0"
                     SelectedIndex="{Binding SelectedTabIndex}"
                     TabStripPlacement="Top">
+
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabPanel}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </TabControl.Resources>
                     <TabItem Header="Transcription" Style="{StaticResource TabItemStyle}">
                         <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
                     </TabItem>
@@ -180,9 +187,12 @@
                 Margin="40,0,40,0"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
-                <Button Command="{Binding RecordCommand}" Style="{StaticResource RecordButtonStyle}" />
+                <Button
+                    Margin="10,0,0,0"
+                    Command="{Binding RecordCommand}"
+                    Style="{StaticResource RecordButtonStyle}" />
                 <minutes:AudioVisualizerControl
-                    Width="400"
+                    Width="330"
                     Margin="20,0,20,0"
                     HorizontalAlignment="Left"
                     AudioLevelsProperty="{Binding AudioLevels}"
@@ -195,13 +205,15 @@
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0">
-            <StackPanel Margin="10" Orientation="Horizontal">
+            <StackPanel
+                Margin="10"
+                Background="Transparent"
+                Orientation="Horizontal">
                 <Image
                     Width="40"
                     Height="40"
                     Source="/Icons/UserIcon.png" />
                 <TextBlock
-                    Width="240"
                     Height="40"
                     Padding="10,5,0,0"
                     VerticalAlignment="Center"
@@ -259,6 +271,17 @@
                     </StackPanel>
 
                 </Border>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="2">
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                <CheckBox
+                    Margin="0,0,25,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource AnimatedToggleButton}" />
+
             </StackPanel>
         </Grid>
     </Grid>

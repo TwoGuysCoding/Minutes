@@ -54,8 +54,8 @@
         </Setter>
     </Style>
     <Style x:Key="AnimatedToggleButton" TargetType="CheckBox">
-        <Setter Property="Width" Value="100" />
-        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Height" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
@@ -73,13 +73,13 @@
                             <Grid>
                                 <Rectangle
                                     x:Name="SwitchThumb"
-                                    Width="40"
-                                    Height="40"
+                                    Width="30"
+                                    Height="30"
                                     Margin="2"
                                     HorizontalAlignment="Left"
                                     Fill="{StaticResource White}"
-                                    RadiusX="23"
-                                    RadiusY="23" />
+                                    RadiusX="20"
+                                    RadiusY="20" />
                             </Grid>
                         </Grid>
                     </Border>
@@ -91,12 +91,12 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="SwitchBackground"
                                             Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
-                                            To="{StaticResource OrangeColor}"
+                                            To="{StaticResource PrimaryDark}"
                                             Duration="0:0:0.3" />
                                         <ThicknessAnimation
                                             Storyboard.TargetName="SwitchThumb"
                                             Storyboard.TargetProperty="Margin"
-                                            To="52,2,0,2"
+                                            To="43,2,0,2"
                                             Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -112,7 +112,7 @@
                                         <ThicknessAnimation
                                             Storyboard.TargetName="SwitchThumb"
                                             Storyboard.TargetProperty="Margin"
-                                            To="2,2,0,2"
+                                            To="3,2,0,2"
                                             Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -335,10 +335,12 @@
         </Style.Triggers>
 
     </Style>
+
     <Style x:Key="TabItemStyle" TargetType="TabItem">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="Background" Value="{StaticResource BackgroundPrimaryBrush}" />
 
         <Setter Property="Template">
@@ -346,27 +348,31 @@
                 <ControlTemplate TargetType="TabItem">
                     <Border
                         x:Name="border"
-                        Margin="1,1,1,0"
-                        Padding="5"
+                        MinWidth="50"
+                        MaxWidth="200"
+                        Margin="2,0,2,18"
+                        Padding="8"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="10 10 0 0">
                         <ContentPresenter
                             Width="Auto"
-                            HorizontalAlignment="Stretch"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             ContentSource="Header" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundSecondaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryBrush}" />
+                            <Setter Property="FontWeight" Value="DemiBold" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryDarkBrush}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryLightBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundSecondaryBrush}" />
+                            <Setter Property="FontWeight" Value="Normal" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -374,7 +380,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Foreground" Value="White" />
                 <Setter Property="Background" Value="Transparent" />
             </Trigger>
             <Trigger Property="IsSelected" Value="False">
@@ -408,9 +414,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="0">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="0">
                         <ScrollViewer x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
