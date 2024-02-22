@@ -17,11 +17,13 @@ namespace Minutes.MVVM.ViewModels
         private string? _recentTranscription;
         private string? _partialTranscription;
         private readonly ITranscriptionService _transcriptionService;
+        private readonly ITimerService _timerService;
 
-        public TranscriptionTextViewModel(ITranscriptionService transcriptionService)
+        public TranscriptionTextViewModel(ITranscriptionService transcriptionService, ITimerService timerService)
         {
             _transcriptionService = transcriptionService;
             _transcriptionService.TranscriptionTextChanged += (_, text) => ReceiveMessages(text);
+            _timerService = timerService;
         }
 
         private void ReceiveMessages(string text)
@@ -37,7 +39,8 @@ namespace Minutes.MVVM.ViewModels
                 case "final":
                     _recentTranscription = jsonObject["text"];
                     _partialTranscription = null;
-                    _transcriptionStorage += _recentTranscription + '\n';
+                    _transcriptionStorage += _timerService.ElapsedTime.ToString(@"hh\:mm\:ss") + '\n';
+                    _transcriptionStorage += _recentTranscription + '\n' + '\n';
                     _transcriptionService.AppendEnhancedTranscriptionText(TranscriptionText ?? throw new InvalidOperationException());
                     break;
             }

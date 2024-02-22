@@ -15,6 +15,8 @@ namespace Minutes.Services
     {
         private readonly WebsocketManager _websocket;
 
+        private string? _enhnacedTranscriptionBuffer;
+
         public TranscriptionService()
         {
             _websocket = new WebsocketManager("ws://localhost:8000/ws/transcribe_aai", ReceiveTranscriptionText);
@@ -81,6 +83,8 @@ namespace Minutes.Services
 
         public async Task AppendEnhancedTranscriptionText(string text)
         {
+            _enhnacedTranscriptionBuffer += text;
+            if(_enhnacedTranscriptionBuffer.Length < 400) return;
             try
             {
                 using var httpClient = new HttpClient();
