@@ -166,7 +166,7 @@ namespace Minutes.MVVM.ViewModels
             // Send the audio data to the server
             var buffer = new byte[e.BytesRecorded];
             Buffer.BlockCopy(e.Buffer, 0, buffer, 0, e.BytesRecorded);
-            var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 120, 0.16f);
+            var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 100, 0.16f);
             AudioLevels = audioLevels;
             await _transcriptionService.SendData(buffer);
         }
