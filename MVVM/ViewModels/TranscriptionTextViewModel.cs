@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
+using Minutes.Services;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -15,21 +16,19 @@ namespace Minutes.MVVM.ViewModels
         private string? _transcriptionStorage;
         private string? _recentTranscription;
         private string? _partialTranscription;
+        private readonly ITranscriptionService _transcriptionService;
+        private readonly ITimerService _timerService;
 
-        public TranscriptionTextViewModel()
+        public TranscriptionTextViewModel(ITranscriptionService transcriptionService, ITimerService timerService)
         {
-            Mediator.Instance.Register("TranscriptionTextChanged", ReceiveMessages);
+            _transcriptionService = transcriptionService;
+            _transcriptionService.TranscriptionTextChanged += (_, text) => ReceiveMessages(text);
+            _timerService = timerService;
         }
 
-        private void ReceiveMessages(object? text)
+        private void ReceiveMessages(string text)
         {
-            if (text == null)
-            {
-                Debug.WriteLine("Tried to send null object to transcriptionViewModel");
-                return;
-            }
-
-            var response = text as string ?? throw new NullReferenceException("Response is null");
+            var response = text ?? throw new NullReferenceException("Response is null");
             var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(response!);
             if (!jsonObject!.TryGetValue("type", out var type)) return;
             switch (type)
@@ -40,38 +39,14 @@ namespace Minutes.MVVM.ViewModels
                 case "final":
                     _recentTranscription = jsonObject["text"];
                     _partialTranscription = null;
-                    _transcriptionStorage += _recentTranscription;
-                    SendTranscriptionTextForEnhancement(_recentTranscription);
+                    _transcriptionStorage += _timerService.ElapsedTime.ToString(@"hh\:mm\:ss") + '\n';
+                    _transcriptionStorage += _recentTranscription + '\n' + '\n';
+                    _transcriptionService.AppendEnhancedTranscriptionText(TranscriptionText ?? throw new InvalidOperationException());
                     break;
             }
             TranscriptionText = _transcriptionStorage + _partialTranscription;
         }
 
-        private async void SendTranscriptionTextForEnhancement(string? text)
-        {
-            try
-            {
-                using var httpClient = new HttpClient();
-                var jsonContent = new StringContent(
-                    JsonConvert.SerializeObject(new { text = text ?? string.Empty }),
-                    Encoding.UTF8,
-                    "application/json");
-                var response = await httpClient.PostAsync("http://localhost:5000/demo/enhance_text", jsonContent);
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    Mediator.Instance.Send("SendEnhancedTranscription", responseString);
-                    Debug.WriteLine($"Transcription sent successfully: {responseString}");
-                }
-                else
-                {
-                    Debug.WriteLine("Transcription failed to send");
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Exception occured while sending transcription: {e.Message}");
-            }
-        }
+       
     }
 }
