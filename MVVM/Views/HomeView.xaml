@@ -31,9 +31,9 @@
     <Grid MinWidth="1100">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" MinWidth="200" />
+            <ColumnDefinition Width="350" MinWidth="300" />
             <ColumnDefinition Width="*" MinWidth="500" />
-            <ColumnDefinition Width="300" MinWidth="200" />
+            <ColumnDefinition Width="75" MinWidth="1" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -57,7 +57,7 @@
                     Content="x"
                     DockPanel.Dock="Right"
                     FontSize="15"
-                    FontWeight="Light"
+                    FontWeight="Medium"
                     Foreground="{StaticResource White}"
                     Style="{StaticResource NavBarButtonStyle}" />
                 <Button
@@ -74,9 +74,9 @@
                     Foreground="{StaticResource White}"
                     Style="{StaticResource NavBarButtonStyle}">
                     <Image
-                        Width="16"
-                        Height="16"
-                        Source="/Icons/Maximize.png" />
+                        Width="14"
+                        Height="14"
+                        Source="/Icons/MaximizeIcon.png" />
                 </Button>
                 <Button
                     Width="25"
@@ -90,7 +90,7 @@
                     Content="-"
                     DockPanel.Dock="Right"
                     FontSize="20"
-                    FontWeight="Light"
+                    FontWeight="Medium"
                     Foreground="{StaticResource White}"
                     Style="{StaticResource NavBarButtonStyle}" />
             </DockPanel>
@@ -134,53 +134,83 @@
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
+            <Border
+                Margin="4,5,4,0"
+                Background="{StaticResource BackgroundSecondaryBrush}"
+                CornerRadius="15" />
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="23" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Border
-                    Grid.Row="1"
-                    Margin="4,18,4,0"
-                    Background="{StaticResource BackgroundSecondaryBrush}"
-                    CornerRadius="15" />
-                <TabControl
-                    Grid.Row="0"
-                    Grid.RowSpan="2"
-                    Margin="2,2,2,2"
-                    Padding="1"
-                    HorizontalAlignment="Stretch"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    SelectedIndex="{Binding SelectedTabIndex}"
-                    TabStripPlacement="Top">
-
-                    <TabControl.Resources>
-                        <Style TargetType="{x:Type TabPanel}">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </TabControl.Resources>
-                    <TabItem Header="Transcription" Style="{StaticResource TabItemStyle}">
-                        <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
-                    </TabItem>
-                    <TabItem Header="Enhanced Transcription" Style="{StaticResource TabItemStyle}">
-                        <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
-                    </TabItem>
-                    <TabItem Header="Summary" Style="{StaticResource TabItemStyle}">
-                        <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
-                    </TabItem>
-                </TabControl>
-            </Grid>
 
         </Grid>
-
         <Grid Grid.Row="1" Grid.Column="2">
             <Border
                 Margin="0,10,10,0"
                 Background="{StaticResource BackgroundSecondaryBrush}"
                 CornerRadius="15" />
         </Grid>
+
+        <TabControl
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="2,2,5,2"
+            Padding="1"
+            HorizontalAlignment="Stretch"
+            Background="Transparent"
+            BorderThickness="0"
+            SelectedIndex="{Binding SelectedTabIndex}"
+            TabStripPlacement="Right">
+
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabPanel}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+            </TabControl.Resources>
+            <TabItem Style="{StaticResource TabItemStyle}" ToolTip="Transcription">
+                <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
+                <TabItem.Header>
+                    <StackPanel HorizontalAlignment="Left">
+                        <Image
+                            Width="25"
+                            Height="25"
+                            Source="/Icons/Trans.png" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Style="{StaticResource TabItemStyle}" ToolTip="Enhanced Transcription">
+                <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
+                <TabItem.Header>
+                    <StackPanel HorizontalAlignment="Left">
+                        <Image
+                            Width="25"
+                            Height="25"
+                            Source="/Icons/EnchTrans.png" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Style="{StaticResource TabItemStyle}" ToolTip="Summary">
+                <ContentControl Margin="20" Content="{Binding TextDisplayNavigation.CurrentView}" />
+                <TabItem.Header>
+                    <StackPanel HorizontalAlignment="Left">
+                        <Image
+                            Width="25"
+                            Height="25"
+                            Source="/Icons/Summ.png" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Style="{StaticResource TabItemStyle}" ToolTip="Options">
+                <TabItem.Header>
+                    <StackPanel HorizontalAlignment="Left">
+                        <Image
+                            Width="25"
+                            Height="25"
+                            Source="/Icons/Options.png" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
 
         <Grid Grid.Row="2" Grid.Column="1">
             <StackPanel
@@ -202,6 +232,16 @@
                     BarWidth="3.5"
                     MaxHeightValue="80" />
             </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                <CheckBox
+                    Margin="0,0,25,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource AnimatedToggleButton}" />
+
+            </StackPanel>
+
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0">
@@ -294,15 +334,6 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="2">
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                <CheckBox
-                    Margin="0,0,25,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource AnimatedToggleButton}" />
-
-            </StackPanel>
-        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" />
     </Grid>
 </UserControl>
