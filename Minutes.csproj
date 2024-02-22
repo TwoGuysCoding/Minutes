@@ -35,15 +35,22 @@
     <None Remove="Fonts\Inter-Regular.ttf" />
     <None Remove="Fonts\Inter-SemiBold.ttf" />
     <None Remove="Fonts\Inter-Thin.ttf" />
+    <None Remove="Icons\EnchTrans.png" />
     <None Remove="Icons\Maximize.png" />
     <None Remove="Icons\MaximizeIcon.png" />
     <None Remove="Icons\Microphone.png" />
     <None Remove="Icons\MicrophoneCrossed.png" />
+    <None Remove="Icons\Options.png" />
     <None Remove="Icons\PlusIcon.png" />
+    <None Remove="Icons\Summ.png" />
+    <None Remove="Icons\Trans.png" />
     <None Remove="Icons\UserIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\EnchTrans.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\Maximize.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -56,7 +63,16 @@
     <Resource Include="Icons\MicrophoneCrossed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\Options.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\PlusIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Summ.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Trans.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\UserIcon.png">

@@ -341,7 +341,7 @@
     <Style x:Key="TabItemStyle" TargetType="TabItem">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Background" Value="{StaticResource BackgroundPrimaryBrush}" />
 
@@ -351,13 +351,13 @@
                     <Border
                         x:Name="border"
                         MinWidth="50"
-                        MaxWidth="200"
-                        Margin="2,0,2,18"
+                        MaxWidth="300"
+                        Margin="2,14,10,0"
                         Padding="8"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="10 10 0 0">
+                        CornerRadius="10 ">
                         <ContentPresenter
                             Width="Auto"
                             HorizontalAlignment="Center"
@@ -367,14 +367,14 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryBrush}" />
-                            <Setter Property="FontWeight" Value="DemiBold" />
+
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryDarkBrush}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundSecondaryBrush}" />
-                            <Setter Property="FontWeight" Value="Normal" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -390,6 +390,30 @@
                 <Setter Property="Background" Value="Transparent" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+        <Setter Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+        <Setter Property="Foreground" Value="WhiteSmoke" />
+        <Setter Property="BorderBrush" Value="{StaticResource BackgroundPrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="50,10,50,10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="1">
+                        <ContentPresenter
+                            Margin="5,2,5,2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="ColorButtonSquare" TargetType="Button">
