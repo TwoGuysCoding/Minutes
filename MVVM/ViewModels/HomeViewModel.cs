@@ -7,7 +7,12 @@ using Minutes.Utils;
 using Minutes.Windows;
 using NAudio.Wave;
 using System.Diagnostics;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Shell;
 using System.Windows.Threading;
+using Application = System.Windows.Application;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -24,6 +29,8 @@ namespace Minutes.MVVM.ViewModels
         /// <summary>
         /// The text displayed on the record button.
         /// </summary>
+        [ObservableProperty] private List<string> _transcriptionFiles;
+        private Dictionary<string, string> transDictionary;
         [ObservableProperty] private string _recordButtonText = "Start";
         [ObservableProperty] private string _stopWatchText = "00:00:00";
         [ObservableProperty] private string _summaryText = "The summary text will be displayed here";
@@ -90,6 +97,46 @@ namespace Minutes.MVVM.ViewModels
             _windowNavigationService = windowNavigationService;
             _timerService = timerService;
             _transcriptionService = transcriptionService;
+            transDictionary = new Dictionary<string, string>()
+            {
+                { "Transcription 1", "This is the transcription for the first audio file" }, 
+                { "Transcription 2", "This is the transcription for the second audio file" }
+            };
+            TranscriptionFiles = transDictionary.Keys.ToList();
+            FullScreen();
+        }
+
+        [RelayCommand]
+        private void FullScreen()
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+                WindowChrome.SetWindowChrome(Application.Current.MainWindow, new WindowChrome
+                {
+                    CaptionHeight = 0,
+                    CornerRadius = new CornerRadius(10),
+                    GlassFrameThickness = new Thickness(0),
+                    ResizeBorderThickness = new Thickness(10)
+                });
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                WindowChrome.SetWindowChrome(Application.Current.MainWindow, new WindowChrome
+                {
+                    CaptionHeight = 0,
+                    CornerRadius = new CornerRadius(0),
+                    GlassFrameThickness = new Thickness(0),
+                    ResizeBorderThickness = new Thickness(0)
+                });
+            }
+        }
+
+        [RelayCommand]
+        private void Exit()
+        {
+            Application.Current.Shutdown();
         }
 
         [RelayCommand]
