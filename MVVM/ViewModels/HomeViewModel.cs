@@ -18,22 +18,9 @@ namespace Minutes.MVVM.ViewModels
 {
     internal partial class HomeViewModel : ViewModel
     {
-        //private readonly WebsocketManager _transcriptionWebsocketManager;
-
-        /// <summary>
-        /// The audio recorder used for recording audio.
-        /// </summary>
         private readonly IRecordingService _recordingService;
-
-
-        /// <summary>
-        /// The text displayed on the record button.
-        /// </summary>
         [ObservableProperty] private List<string> _transcriptionFiles;
         private Dictionary<string, string> transDictionary;
-        [ObservableProperty] private string _recordButtonText = "Start";
-        [ObservableProperty] private string _stopWatchText = "00:00:00";
-        [ObservableProperty] private string _summaryText = "The summary text will be displayed here";
         [ObservableProperty] private double[]? _audioLevels;
         [ObservableProperty] private ITextDisplayNavigationService _textDisplayNavigation;
         [ObservableProperty] private IMainNavigationService _mainNavigationService;
@@ -66,9 +53,6 @@ namespace Minutes.MVVM.ViewModels
             }
         }
 
-        private readonly Stopwatch _stopwatch = new();
-        private readonly DispatcherTimer _dispatcher = new();
-
 
         /// <summary>
         /// Indicates whether the application is currently recording audio.
@@ -90,9 +74,6 @@ namespace Minutes.MVVM.ViewModels
             _recordingService.SetAudioFormat(16000, 16, 1);
             _recordingService.InitializeRecordingHandler(RecordingHandler);
             NavigateToTranscriptionText();
-            //_transcriptionWebsocketManager = new WebsocketManager("ws://localhost:8000/ws/transcribe_aai", DisplayTranscriptionText);
-            _dispatcher.Tick += (s, a) => UpdateStopWatch();
-            _dispatcher.Interval = new TimeSpan(0, 0, 0, 1, 0); // Update every second
             _recordingService = recordingService;
             _windowNavigationService = windowNavigationService;
             _timerService = timerService;
@@ -104,6 +85,8 @@ namespace Minutes.MVVM.ViewModels
             };
             TranscriptionFiles = transDictionary.Keys.ToList();
             FullScreen();
+
+            AudioLevels = FftAudioTransformer.CreateLowLevelArray(100);
         }
 
         [RelayCommand]
@@ -142,7 +125,6 @@ namespace Minutes.MVVM.ViewModels
         [RelayCommand]
         private async Task LoadMainView()
         {
-            //await _transcriptionWebsocketManager.OpenConnectionAsync();
             await _transcriptionService.OpenConnectionForTranscription();
         }
 
@@ -150,7 +132,6 @@ namespace Minutes.MVVM.ViewModels
         private async Task UnloadMainView()
         {
             _recordingService.DisposeRecorder();
-            //await _transcriptionWebsocketManager.CloseConnectionAsync();
             await _transcriptionService.CloseConnectionForTranscription();
         }
 
@@ -190,16 +171,15 @@ namespace Minutes.MVVM.ViewModels
             if (!IsRecording)
             {
                 _recordingService.StartRecording();
-                RecordButtonText = "Stop";
                 UpdateRecordingStatus();
                 _timerService.StartTimer();
             }
             else    // If recording, stop recording
             {
                 _recordingService.StopRecording();
-                RecordButtonText = "Start";
                 UpdateRecordingStatus();
                 _timerService.StopTimer();
+                AudioLevels = FftAudioTransformer.CreateLowLevelArray(100);
             }
         }
 
@@ -216,17 +196,6 @@ namespace Minutes.MVVM.ViewModels
             var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 100, 0.16f);
             AudioLevels = audioLevels;
             await _transcriptionService.SendData(buffer);
-        }
-
-        private void UpdateStopWatch()
-        {
-            StopWatchText = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
-        }
-
-        // ReSharper disable once MemberCanBeMadeStatic.Local
-        private void DisplayTranscriptionText(string audioTranscript)
-        {
-            Mediator.Instance.Send("TranscriptionTextChanged", audioTranscript);
         }
 
         public override void OnNavigatedTo()

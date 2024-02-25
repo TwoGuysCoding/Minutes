@@ -58,7 +58,7 @@ namespace Minutes.MVVM.Models
             return newAudioLevels.Select(level => level + additionalRandomNoise * random.NextDouble()).ToArray();
         }
 
-        private static double[] CreateLowLevelArray(int length)
+        public static double[] CreateLowLevelArray(int length)
         {
             var zeroList = new List<double>();
             for (var i = 0; i < length; i++)
