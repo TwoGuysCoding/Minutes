@@ -8,7 +8,7 @@ namespace Minutes.MVVM.ViewModels
 {
     internal partial class EnhancedTranscriptionTextViewModel : ViewModel
     {
-        [ObservableProperty] private string _enhancedTranscriptionText = "The enhanced transcription text will be displayed here: \n";
+        [ObservableProperty] private string _enhancedTranscriptionText = "The enhanced transcription text will be displayed here: \n\n";
 
         private readonly ITranscriptionService _transcriptionService;
 

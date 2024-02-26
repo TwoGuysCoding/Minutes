@@ -16,6 +16,7 @@ namespace Minutes.MVVM.ViewModels
         private string? _transcriptionStorage;
         private string? _recentTranscription;
         private string? _partialTranscription;
+        private string? _transcriptionBuffer;
         private readonly ITranscriptionService _transcriptionService;
         private readonly ITimerService _timerService;
 
@@ -41,7 +42,7 @@ namespace Minutes.MVVM.ViewModels
                     _partialTranscription = null;
                     _transcriptionStorage += _timerService.ElapsedTime.ToString(@"hh\:mm\:ss") + '\n';
                     _transcriptionStorage += _recentTranscription + '\n' + '\n';
-                    _transcriptionService.AppendEnhancedTranscriptionText(TranscriptionText ?? throw new InvalidOperationException());
+                    _transcriptionService.AppendEnhancedTranscriptionText(_recentTranscription ?? throw new InvalidOperationException());
                     break;
             }
             TranscriptionText = _transcriptionStorage + _partialTranscription;

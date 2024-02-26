@@ -15,7 +15,7 @@ namespace Minutes.Services
     {
         private readonly WebsocketManager _websocket;
 
-        private string? _enhnacedTranscriptionBuffer;
+        private string? _enhancedTranscriptionBuffer;
 
         public TranscriptionService()
         {
@@ -83,13 +83,13 @@ namespace Minutes.Services
 
         public async Task AppendEnhancedTranscriptionText(string text)
         {
-            _enhnacedTranscriptionBuffer += text;
-            if(_enhnacedTranscriptionBuffer.Length < 400) return;
+            _enhancedTranscriptionBuffer += text;
+            if(_enhancedTranscriptionBuffer.Length < 400) return;
             try
             {
                 using var httpClient = new HttpClient();
                 var jsonContent = new StringContent(
-                    JsonConvert.SerializeObject(new { text }),
+                    JsonConvert.SerializeObject(new { text = _enhancedTranscriptionBuffer }),
                     Encoding.UTF8,
                     "application/json");
                 var response = await httpClient.PostAsync("http://localhost:5000/demo/enhance_text", jsonContent);
@@ -99,7 +99,8 @@ namespace Minutes.Services
                     var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString);
                     if (jsonObject != null && jsonObject.TryGetValue("text", out var value))
                     {
-                        EnhancedTranscriptionText = value;
+                        EnhancedTranscriptionText += value;
+                        _enhancedTranscriptionBuffer = string.Empty;
                     }
                     Debug.WriteLine($"Transcription sent successfully: {responseString}");
                 }

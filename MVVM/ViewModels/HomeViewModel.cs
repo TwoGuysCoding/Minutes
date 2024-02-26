@@ -54,14 +54,11 @@ namespace Minutes.MVVM.ViewModels
         }
 
 
-        /// <summary>
-        /// Indicates whether the application is currently recording audio.
-        /// </summary>
         [ObservableProperty] private bool _isRecording;
 
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        [ObservableProperty] private bool _isDeviceCheckBoxChecked;
+        [ObservableProperty] private bool _isDeviceCheckBoxEnabled = true;
+
         public HomeViewModel(ITextDisplayNavigationService navigation, IMainNavigationService mainNavigationService,
             IRecordingService recordingService, IWindowNavigationService windowNavigationService, ITimerService timerService,
             ITranscriptionService transcriptionService)
@@ -70,7 +67,12 @@ namespace Minutes.MVVM.ViewModels
             TextDisplayNavigation = navigation;
             _mainNavigationService = mainNavigationService;
             _recordingService = recordingService;
-            _recordingService.ChangeRecordingDevice(RecordingDeviceType.WasapiLoopBackCapture);
+            // Setting up both recording devices. Each device has its own audio format and recording handler, so
+            // it has to be set up separately.
+            _recordingService.ChangeRecordingDevice(RecordingDeviceType.WaveInEvent);
+            _recordingService.SetAudioFormat(16000, 16, 1);
+            _recordingService.InitializeRecordingHandler(RecordingHandler);
+            _recordingService.ChangeRecordingDevice(RecordingDeviceType.WasapiLoopBackCapture); // after you change the device the setup does not persist
             _recordingService.SetAudioFormat(16000, 16, 1);
             _recordingService.InitializeRecordingHandler(RecordingHandler);
             NavigateToTranscriptionText();
@@ -173,6 +175,8 @@ namespace Minutes.MVVM.ViewModels
                 _recordingService.StartRecording();
                 UpdateRecordingStatus();
                 _timerService.StartTimer();
+                AudioLevels = FftAudioTransformer.CreateLowLevelArray(100);
+                IsDeviceCheckBoxEnabled = false;
             }
             else    // If recording, stop recording
             {
@@ -180,6 +184,7 @@ namespace Minutes.MVVM.ViewModels
                 UpdateRecordingStatus();
                 _timerService.StopTimer();
                 AudioLevels = FftAudioTransformer.CreateLowLevelArray(100);
+                IsDeviceCheckBoxEnabled = true;
             }
         }
 
@@ -196,6 +201,13 @@ namespace Minutes.MVVM.ViewModels
             var audioLevels = FftAudioTransformer.GetAudioLevels(buffer, .1d, 100, 0.16f);
             AudioLevels = audioLevels;
             await _transcriptionService.SendData(buffer);
+        }
+
+        [RelayCommand]
+        private void ChangeRecordingDevice()
+        {
+            _recordingService.ChangeRecordingDevice(IsDeviceCheckBoxChecked ?
+                RecordingDeviceType.WaveInEvent : RecordingDeviceType.WasapiLoopBackCapture);
         }
 
         public override void OnNavigatedTo()
