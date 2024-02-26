@@ -1,4 +1,5 @@
-﻿using Minutes.Core;
+﻿using System.Diagnostics;
+using Minutes.Core;
 using NAudio.Wave;
 
 namespace Minutes.Services
@@ -7,6 +8,8 @@ namespace Minutes.Services
         : IRecordingService
     {
         private IRecordingDevice? _recordingDevice;
+        private Action<object?, WaveInEventArgs>? _recordingFunction;
+        private WaveFormat? _waveFormat;
 
         public void ToggleRecording()
         {
@@ -33,11 +36,13 @@ namespace Minutes.Services
         public void SetAudioFormat(int sampleRate, int bits, int channels)
         {
             _recordingDevice?.SetAudioFormat(sampleRate, bits, channels);
+            _waveFormat = new WaveFormat(sampleRate, bits, channels);
         }
 
         public void StartRecording()
         {
             _recordingDevice?.StartRecording();
+            Debug.WriteLine(_recordingDevice);
         }
 
         public void StopRecording()
@@ -48,6 +53,7 @@ namespace Minutes.Services
         public void InitializeRecordingHandler(Action<object?, WaveInEventArgs> recordingFunction)
         {
             _recordingDevice?.InitializeRecordingHandler(recordingFunction);
+            _recordingFunction = recordingFunction;
         }
 
         public bool IsRecording => _recordingDevice is { IsRecording: true };

@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using System.Diagnostics;
+using NAudio.Wave;
 
 namespace Minutes.Services
 {
@@ -15,6 +16,7 @@ namespace Minutes.Services
         public void StartRecording()
         {
             _wasapiLoopbackCapture.StartRecording();
+            Debug.WriteLine($"Started recoding from {this} using {_wasapiLoopbackCapture}. Recoding status: {_wasapiLoopbackCapture.CaptureState}");
             IsRecording = true;
         }
 
