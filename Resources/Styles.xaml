@@ -451,16 +451,84 @@
         </Setter>
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="FontFamily" Value="{StaticResource Inter}" />
-        <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Foreground" Value="{StaticResource TextForegroundPrimaryBrush}" />
-        <Setter Property="IsReadOnly" Value="True" />
-        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Cursor" Value="IBeam" />
         <Setter Property="ContextMenu" Value="{x:Null}" />
     </Style>
+
+    <Style x:Key="TranscriptBoxStyle" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border
+                        x:Name="Border"
+                        Width="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=ActualWidth}"
+                        HorizontalAlignment="Stretch"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox
+                                Grid.Row="0"
+                                FontSize="14"
+                                Style="{StaticResource TransparentTextBox}"
+                                Text="{Binding Time}" />
+                            <TextBox
+                                Grid.Row="1"
+                                FontSize="15"
+                                Style="{StaticResource TransparentTextBox}"
+                                Text="{Binding Content}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InvisibleListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <ScrollViewer
+                        x:Name="ScrollViewer"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                        <ScrollViewer.Resources>
+                            <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
+                        </ScrollViewer.Resources>
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 </ResourceDictionary>
