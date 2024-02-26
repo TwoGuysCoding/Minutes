@@ -462,8 +462,9 @@
     </Style>
 
     <Style x:Key="TranscriptBoxStyle" TargetType="ListBoxItem">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{StaticResource BackgroundPrimaryBrush}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
             <Setter.Value>

@@ -36,7 +36,7 @@ namespace Minutes.MVVM.ViewModels
         {
             if (TranscriptionBoxes.Count == 0)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current?.Dispatcher.Invoke(() =>
                     TranscriptionBoxes.Add(new TranscriptionBoxViewModel
                     {
                         Content = "",
