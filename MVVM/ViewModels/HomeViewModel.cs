@@ -111,9 +111,9 @@ namespace Minutes.MVVM.ViewModels
                 WindowChrome.SetWindowChrome(Application.Current.MainWindow, new WindowChrome
                 {
                     CaptionHeight = 0,
-                    CornerRadius = new CornerRadius(0),
+                    CornerRadius = new CornerRadius(10),
                     GlassFrameThickness = new Thickness(0),
-                    ResizeBorderThickness = new Thickness(0)
+                    ResizeBorderThickness = new Thickness(10)
                 });
             }
         }

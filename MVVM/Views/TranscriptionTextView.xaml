@@ -18,6 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <ListBox
+            
             HorizontalContentAlignment="Stretch"
             ItemContainerStyle="{StaticResource TranscriptBoxStyle}"
             ItemsSource="{Binding TranscriptionBoxes}"
