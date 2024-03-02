@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Text;
+using System.Windows;
 using Serilog;
 
 namespace Minutes.MVVM.Models
@@ -60,6 +61,13 @@ namespace Minutes.MVVM.Models
 
                     // Handle the received message (e.g., update UI or process audio). For now, just print it to the console
                     // TODO: Handle the received message
+                    if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        Log.Fatal("Connection closed on server end");
+                        MessageBox.Show("Connection closed on server end", "Fatal Error", 
+                                        MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    }
                     if (result.MessageType != WebSocketMessageType.Text) continue;
 
                     receiveActionParam.Invoke(Encoding.UTF8.GetString(buffer, 0, result.Count));
@@ -112,6 +120,11 @@ namespace Minutes.MVVM.Models
         public bool IsOpen()
         {
             return _clientWebSocket is { State: WebSocketState.Open };
+        }
+
+        public WebSocketState GetWebSocketState()
+        {
+            return _clientWebSocket?.State ?? WebSocketState.None;
         }
     }
 }
