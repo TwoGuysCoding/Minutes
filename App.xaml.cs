@@ -88,7 +88,7 @@ namespace Minutes
                 .MinimumLevel.Debug()
                 .WriteTo.Debug()
                 .WriteTo.Console()
-                .WriteTo.File("logs/myapplog-.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("logs/myapplog-.log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             Log.Information("Application Starting");
