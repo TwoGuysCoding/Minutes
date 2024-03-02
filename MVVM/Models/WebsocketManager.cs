@@ -31,7 +31,6 @@ namespace Minutes.MVVM.Models
                 // Create a new WebSocket client
                 _clientWebSocket = new ClientWebSocket();
                 await _clientWebSocket.ConnectAsync(_serverUri, CancellationToken.None);
-                Debug.WriteLine("Connected to WebSocket server");
                 Log.Information("Connected to WebSocket server");
 
                 await Task.Run(() => ReceiveMessages(receiveAction));
@@ -39,7 +38,7 @@ namespace Minutes.MVVM.Models
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Failed to connect to WebSocket: {e.Message} in {e.Source}");
+                Log.Information($"Failed to connect to WebSocket: {e.Message}");
                 return false;
             }
         }
@@ -63,14 +62,13 @@ namespace Minutes.MVVM.Models
                     // TODO: Handle the received message
                     if (result.MessageType != WebSocketMessageType.Text) continue;
 
-                    Debug.WriteLine($"Server response: {Encoding.UTF8.GetString(buffer, 0, result.Count)}");
                     receiveActionParam.Invoke(Encoding.UTF8.GetString(buffer, 0, result.Count));
                 }
             }
             catch (Exception e)
             {
                 // Handle exceptions (e.g., connection closed)
-                Debug.WriteLine($"Failed to receive messages: {e.Message} in {e.Source}");
+                Log.Information($"Failed to receive messages: {e.Message}");
             }
         }
 
@@ -88,7 +86,7 @@ namespace Minutes.MVVM.Models
             }
             catch (Exception exception)
             {
-                Debug.WriteLine($"Failed to send data to WebSocket: {exception.Message} in {exception.Source}");
+                Log.Information($"Failed to send data to WebSocket: {exception.Message}");
             }
         }
 
@@ -106,7 +104,7 @@ namespace Minutes.MVVM.Models
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Failed to close WebSocket connection: {e.Message} in {e.Source}");
+                Log.Information($"Failed to close WebSocket connection: {e.Message}");
                 return false;
             }
         }
