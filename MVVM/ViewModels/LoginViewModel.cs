@@ -12,6 +12,7 @@ using Minutes.Utils;
 using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security;
+using System.Text.RegularExpressions;
 using Minutes.Services;
 using Application = System.Windows.Application;
 using System.Windows.Shell;
@@ -55,6 +56,21 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine("Username or password is null");
                 return;
             }
+
+            if (!Regex.IsMatch(Mail,
+                    @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
+            {
+                Debug.WriteLine("Invalid email");
+                Message = "Invalid email!";
+                return;
+            }
+            if (password.Length < 12)
+            {
+                Debug.WriteLine("Password is too short");
+                Message = "Password is too short! Min 12 characters";
+                return;
+            }
             try
             {
                 using var httpClient = new HttpClient();
@@ -92,6 +108,20 @@ namespace Minutes.MVVM.ViewModels
             if (Mail == null || password == null)
             {
                 Debug.WriteLine("Username or password is null");
+                return;
+            }
+            if (!Regex.IsMatch(Mail,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
+            {
+                Debug.WriteLine("Invalid email");
+                Message = "Invalid email!";
+                return;
+            }
+            if (password.Length < 12)
+            {
+                Debug.WriteLine("Password is too short");
+                Message = "Password is too short! Min 12 characters";
                 return;
             }
             try

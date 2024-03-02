@@ -303,6 +303,7 @@
                         Padding="3"
                         Background="{TemplateBinding Background}"
                         CornerRadius="10">
+
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
@@ -327,7 +328,7 @@
                         Padding="5"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{StaticResource BackgroundQuaternaryBrush}"
-                        BorderThickness="1"
+                        BorderThickness="2"
                         CornerRadius="10">
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                     </Border>
@@ -535,7 +536,7 @@
         <Setter Property="Cursor" Value="IBeam" />
         <Setter Property="ContextMenu" Value="{x:Null}" />
     </Style>
-
+ 
     <Style x:Key="TranscriptBoxStyle" TargetType="ListBoxItem">
         <Setter Property="Background" Value="{StaticResource BackgroundQuaternaryBrush}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

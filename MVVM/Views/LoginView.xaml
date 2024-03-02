@@ -98,21 +98,33 @@
                                 FontWeight="Bold"
                                 Foreground="{StaticResource White}"
                                 Text="Minutes" />
+                            <Label
+                                Margin="20,10,20,0"
+                                VerticalContentAlignment="Bottom"
+                                Content="Mail:"
+                                FontSize="15"
+                                Foreground="White" />
                             <TextBox
                                 Width="210"
                                 Height="35"
-                                Margin="20,10,20,0"
+                                Margin="20,0,20,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 FontWeight="Light"
                                 Foreground="Black"
                                 Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label
+                                Margin="20,10,20,0"
+                                VerticalContentAlignment="Bottom"
+                                Content="Password:"
+                                FontSize="15"
+                                Foreground="White" />
                             <PasswordBox
                                 x:Name="PwdLogin"
                                 Width="210"
                                 Height="35"
-                                Margin="0,10,0,0"
+                                Margin="0,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="20"
@@ -160,21 +172,33 @@
                                 FontWeight="Bold"
                                 Foreground="{StaticResource White}"
                                 Text="Create" />
+                            <Label
+                                Margin="20,10,20,0"
+                                VerticalContentAlignment="Bottom"
+                                Content="Mail:"
+                                FontSize="15"
+                                Foreground="White" />
                             <TextBox
                                 Width="210"
                                 Height="35"
-                                Margin="20,10,20,0"
+                                Margin="20,0,20,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 FontWeight="Light"
                                 Foreground="Black"
                                 Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label
+                                Margin="20,10,20,0"
+                                VerticalContentAlignment="Bottom"
+                                Content="Password:"
+                                FontSize="15"
+                                Foreground="White" />
                             <PasswordBox
                                 x:Name="PwdReg"
                                 Width="210"
                                 Height="35"
-                                Margin="0,10,0,0"
+                                Margin="0,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="20"
