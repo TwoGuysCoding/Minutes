@@ -99,7 +99,7 @@ namespace Minutes.Services
                     var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString);
                     if (jsonObject != null && jsonObject.TryGetValue("text", out var value))
                     {
-                        EnhancedTranscriptionText += value;
+                        EnhancedTranscriptionText = value;
                         _enhancedTranscriptionBuffer = string.Empty;
                     }
                     Debug.WriteLine($"Transcription sent successfully: {responseString}");

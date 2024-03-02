@@ -17,11 +17,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ScrollViewer>
-            <ScrollViewer.Resources>
-                <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
-            </ScrollViewer.Resources>
-            <TextBox Style="{StaticResource TransparentTextBox}" Text="{Binding TranscriptionText}" />
-        </ScrollViewer>
+        <ListBox
+            
+            HorizontalContentAlignment="Stretch"
+            ItemContainerStyle="{StaticResource TranscriptBoxStyle}"
+            ItemsSource="{Binding TranscriptionBoxes}"
+            Style="{StaticResource InvisibleListBoxStyle}" />
     </Grid>
 </UserControl>

@@ -35,6 +35,17 @@
     <None Remove="Fonts\Inter-Regular.ttf" />
     <None Remove="Fonts\Inter-SemiBold.ttf" />
     <None Remove="Fonts\Inter-Thin.ttf" />
+    <None Remove="Fonts\LTSaeada-Medium.otf" />
+    <None Remove="Fonts\RedditSans-Bold.ttf" />
+    <None Remove="Fonts\RedditSans-BoldItalic.ttf" />
+    <None Remove="Fonts\RedditSans-ExtraBold.ttf" />
+    <None Remove="Fonts\RedditSans-ExtraBoldItalic.ttf" />
+    <None Remove="Fonts\RedditSans-Italic.ttf" />
+    <None Remove="Fonts\RedditSans-Light.ttf" />
+    <None Remove="Fonts\RedditSans-LightItalic.ttf" />
+    <None Remove="Fonts\RedditSans-Regular.ttf" />
+    <None Remove="Fonts\RedditSans-SemiBold.ttf" />
+    <None Remove="Fonts\RedditSans-SemiBoldItalic.ttf" />
     <None Remove="Icons\EnchTrans.png" />
     <None Remove="Icons\Maximize.png" />
     <None Remove="Icons\MaximizeIcon.png" />
@@ -45,6 +56,42 @@
     <None Remove="Icons\Summ.png" />
     <None Remove="Icons\Trans.png" />
     <None Remove="Icons\UserIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\LTSaeada-Medium.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-BoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-ExtraBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-LightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\RedditSans-SemiBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -150,10 +197,6 @@
     <Resource Include="Fonts\Inter-Thin.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Trans\" />
   </ItemGroup>
 
 </Project>

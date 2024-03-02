@@ -7,8 +7,10 @@
     xmlns:views="clr-namespace:Minutes.MVVM.Views">
     <Application.Resources>
         <FontFamily x:Key="Antipasto">pack://application:,,,/Fonts/#Antipasto Pro</FontFamily>
+        <FontFamily x:Key="LTSaeada">pack://apliccation:,,,/Fonts/#LT Saeada Medium</FontFamily>
         <!--  Remove this font later  -->
 
+        <FontFamily x:Key="RedditSans">pack://:,,,/Fonts#Reddit Sans</FontFamily>
         <FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
 
         <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">

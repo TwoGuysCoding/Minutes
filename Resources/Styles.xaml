@@ -19,6 +19,14 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="10">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="4"
+                                Direction="270"
+                                Opacity="0.4"
+                                ShadowDepth="3"
+                                Color="{StaticResource PrimaryLight}" />
+                        </Border.Effect>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -54,8 +62,8 @@
         </Setter>
     </Style>
     <Style x:Key="AnimatedToggleButton" TargetType="CheckBox">
-        <Setter Property="Width" Value="80" />
-        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="30" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
@@ -68,18 +76,18 @@
                             <Rectangle
                                 x:Name="SwitchBackground"
                                 Fill="{StaticResource DarkGray}"
-                                RadiusX="25"
-                                RadiusY="25" />
+                                RadiusX="5"
+                                RadiusY="15" />
                             <Grid>
                                 <Rectangle
                                     x:Name="SwitchThumb"
-                                    Width="30"
-                                    Height="30"
+                                    Width="20"
+                                    Height="20"
                                     Margin="3"
                                     HorizontalAlignment="Left"
                                     Fill="{StaticResource White}"
-                                    RadiusX="20"
-                                    RadiusY="20" />
+                                    RadiusX="15"
+                                    RadiusY="15" />
                             </Grid>
                         </Grid>
                     </Border>
@@ -96,7 +104,7 @@
                                         <ThicknessAnimation
                                             Storyboard.TargetName="SwitchThumb"
                                             Storyboard.TargetProperty="Margin"
-                                            To="43,2,0,2"
+                                            To="23,2,0,2"
                                             Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -315,6 +323,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border
+                        Margin="2,0,2,5"
                         Padding="5"
                         Background="{TemplateBinding Background}"
                         CornerRadius="10">
@@ -363,6 +372,14 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             ContentSource="Header" />
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="4"
+                                Direction="270"
+                                Opacity="0.4"
+                                ShadowDepth="3"
+                                Color="{StaticResource PrimaryLight}" />
+                        </Border.Effect>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="False">
@@ -451,16 +468,98 @@
         </Setter>
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="FontFamily" Value="{StaticResource Inter}" />
-        <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Foreground" Value="{StaticResource TextForegroundPrimaryBrush}" />
-        <Setter Property="IsReadOnly" Value="True" />
-        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Cursor" Value="IBeam" />
         <Setter Property="ContextMenu" Value="{x:Null}" />
     </Style>
+
+    <Style x:Key="TranscriptBoxStyle" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="{StaticResource BackgroundQuaternaryBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border
+                        x:Name="Border"
+                        HorizontalAlignment="Stretch"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="10">
+                        <Border.Effect>
+                            <DropShadowEffect>
+                                <DropShadowEffect.BlurRadius>4</DropShadowEffect.BlurRadius>
+                                <DropShadowEffect.Color>
+                                    <StaticResource ResourceKey="PrimaryLight" />
+                                </DropShadowEffect.Color>
+                                <DropShadowEffect.Direction>90</DropShadowEffect.Direction>
+                                <DropShadowEffect.Opacity>0.4</DropShadowEffect.Opacity>
+                                <DropShadowEffect.ShadowDepth>4</DropShadowEffect.ShadowDepth>
+                            </DropShadowEffect>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox
+                                Grid.Row="0"
+                                FontFamily="{StaticResource LTSaeada}"
+                                FontSize="14"
+                                Style="{StaticResource TransparentTextBox}"
+                                Text="{Binding Time}" />
+                            <TextBox
+                                Grid.Row="1"
+                                FontFamily="{StaticResource RedditSans}"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                Style="{StaticResource TransparentTextBox}"
+                                Text="{Binding Content}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundTertiaryBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InvisibleListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <ScrollViewer
+                        x:Name="ScrollViewer"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                        <ScrollViewer.Resources>
+                            <Style BasedOn="{StaticResource CustomScrollBar}" TargetType="{x:Type ScrollBar}" />
+                        </ScrollViewer.Resources>
+                        <ItemsPresenter Margin="0,0,10,0" />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 </ResourceDictionary>
