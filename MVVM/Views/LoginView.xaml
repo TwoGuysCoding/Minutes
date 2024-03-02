@@ -48,7 +48,7 @@
                     VerticalAlignment="Center"
                     BorderBrush="Black"
                     BorderThickness="0"
-                    Command="{Binding MinimilizeCommand}"
+                    Command="{Binding MinCommand}"
                     Content="-"
                     DockPanel.Dock="Right"
                     FontSize="20"
@@ -83,15 +83,15 @@
                     <TabItem
                         x:Name="Login"
                         Width="123"
-                        Margin="0,0,1,0"
+                        Margin="0,0,2,0"
                         Header="Log In"
-                        Style="{StaticResource TabItemStyle}">
+                        Style="{StaticResource TabItemStyleLogin}">
                         <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Background="Transparent">
                             <TextBlock
-                                Margin="0,50,0,0"
+                                Margin="0,30,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="30"
@@ -129,8 +129,9 @@
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LoginView}}}"
                                 Content="Login"
                                 FontSize="15"
-                                FontWeight="Light"
-                                Style="{StaticResource ColorButtonSquare}" />
+                                FontWeight="Medium"
+                                Foreground="White"
+                                Style="{StaticResource TransparentButtonStyleTrans}" />
                             <TextBlock
                                 Margin="0,10,0,20"
                                 HorizontalAlignment="Center"
@@ -144,15 +145,15 @@
                     </TabItem>
                     <TabItem
                         Width="123"
-                        Margin="1,0,0,0"
+                        Margin="2,0,0,0"
                         Header="Register"
-                        Style="{StaticResource TabItemStyle}">
+                        Style="{StaticResource TabItemStyleLogin}">
                         <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Background="Transparent">
                             <TextBlock
-                                Margin="0,50,0,0"
+                                Margin="0,30,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="30"
@@ -190,8 +191,9 @@
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LoginView}}}"
                                 Content="Register"
                                 FontSize="15"
-                                FontWeight="Light"
-                                Style="{StaticResource ColorButtonSquare}" />
+                                FontWeight="Medium"
+                                Foreground="White"
+                                Style="{StaticResource TransparentButtonStyleTrans}" />
                             <TextBlock
                                 Margin="0,10,0,20"
                                 HorizontalAlignment="Center"

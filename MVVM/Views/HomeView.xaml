@@ -108,7 +108,7 @@
                         <Image
                             Width="30"
                             Height="30"
-                            Source="/Icons/PlusIcon.png" />
+                            Source="/Icons/IconWOBackground.png" />
                         <TextBlock
                             Height="40"
                             Padding="10,10,0,10"
@@ -238,6 +238,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Command="{Binding ChangeRecordingDeviceCommand}"
+                    Content=""
                     IsChecked="{Binding IsDeviceCheckBoxChecked}"
                     IsEnabled="{Binding IsDeviceCheckBoxEnabled}"
                     Style="{StaticResource AnimatedToggleButton}" />

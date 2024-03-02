@@ -13,6 +13,9 @@ using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security;
 using Minutes.Services;
+using Application = System.Windows.Application;
+using System.Windows.Shell;
+using System.Windows;
 
 namespace Minutes.MVVM.ViewModels
 {
@@ -33,6 +36,15 @@ namespace Minutes.MVVM.ViewModels
         public LoginViewModel(IMainNavigationService navService)
         {
             _mainNavigationService = navService;
+
+            Application.Current.MainWindow.WindowState = WindowState.Normal;
+            WindowChrome.SetWindowChrome(Application.Current.MainWindow, new WindowChrome
+            {
+                CaptionHeight = 0,
+                CornerRadius = new CornerRadius(10),
+                GlassFrameThickness = new Thickness(0),
+                ResizeBorderThickness = new Thickness(10)
+            });
         }
 
         public async void RegisterUser(object o)
@@ -90,8 +102,8 @@ namespace Minutes.MVVM.ViewModels
                 var response = await httpClient.PostAsync("http://localhost:4000/api/create_token", jsonContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine($"Login successfull: {Mail}");
-                    Message = "Login successfull!";
+                    Debug.WriteLine($"Login successful: {Mail}");
+                    Message = "Login successful!";
                     _mainNavigationService.NavigateTo<HomeViewModel>();
                 }
                 else
@@ -104,6 +116,19 @@ namespace Minutes.MVVM.ViewModels
                 Debug.WriteLine($"Exception occured while login request: {e.Message}");
             }
         }
-        
+
+
+        [RelayCommand]
+        private void Exit()
+        {
+            Application.Current.Shutdown();
+        }
+
+        [RelayCommand]
+        private void Min()
+        {
+            Application.Current.MainWindow.WindowState = System.Windows.WindowState.Minimized;
+        }
+
     }
 }

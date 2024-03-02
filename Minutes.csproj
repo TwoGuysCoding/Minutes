@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icons\MainIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,6 +48,7 @@
     <None Remove="Fonts\RedditSans-SemiBold.ttf" />
     <None Remove="Fonts\RedditSans-SemiBoldItalic.ttf" />
     <None Remove="Icons\EnchTrans.png" />
+    <None Remove="Icons\IconWOBackground.png" />
     <None Remove="Icons\Maximize.png" />
     <None Remove="Icons\MaximizeIcon.png" />
     <None Remove="Icons\Microphone.png" />
@@ -56,6 +58,10 @@
     <None Remove="Icons\Summ.png" />
     <None Remove="Icons\Trans.png" />
     <None Remove="Icons\UserIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\MainIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -97,6 +103,9 @@
   <ItemGroup>
     <Resource Include="Icons\EnchTrans.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\IconWOBackground.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\Maximize.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
