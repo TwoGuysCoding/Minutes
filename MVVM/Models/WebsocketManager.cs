@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Text;
+using Serilog;
 
 namespace Minutes.MVVM.Models
 {
@@ -31,6 +32,7 @@ namespace Minutes.MVVM.Models
                 _clientWebSocket = new ClientWebSocket();
                 await _clientWebSocket.ConnectAsync(_serverUri, CancellationToken.None);
                 Debug.WriteLine("Connected to WebSocket server");
+                Log.Information("Connected to WebSocket server");
 
                 await Task.Run(() => ReceiveMessages(receiveAction));
                 return true;

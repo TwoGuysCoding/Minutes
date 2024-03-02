@@ -4,6 +4,7 @@ using Minutes.MVVM.ViewModels;
 using Minutes.Services;
 using Minutes.Windows;
 using System.Windows;
+using Serilog;
 
 namespace Minutes
 {
@@ -69,8 +70,28 @@ namespace Minutes
         protected override void OnStartup(StartupEventArgs e)
         {
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            SetUpLogger();
             mainWindow.Show();
             base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Log.Information("Application Exiting");
+            Log.CloseAndFlush();
+            base.OnExit(e);
+        }
+
+        private void SetUpLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs/myapplog-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            Log.Information("Application Starting");
         }
     }
 
