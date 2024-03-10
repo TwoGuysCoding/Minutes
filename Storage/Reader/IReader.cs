@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Storage;
 public interface IReader
 {
+    public void Read();
     public DateTime Created();
     public TimeOnly Duration();
     public string Summary();
