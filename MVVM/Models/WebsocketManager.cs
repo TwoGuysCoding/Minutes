@@ -49,8 +49,8 @@ namespace Minutes.MVVM.Models
                     retryAttempts++;
                 }
             }
-            Log.Fatal("Failed to connect to WebSocket after {retryAttempts + 1} attempts");
-                MessageBox.Show("Failed to connect to WebSocket after {retryAttempts} attempts", "Fatal Error", 
+            Log.Fatal($"Failed to connect to WebSocket after {retryAttempts} attempts");
+                MessageBox.Show($"Failed to connect to WebSocket after {retryAttempts} attempts", "Fatal Error", 
                                 MessageBoxButton.OK, MessageBoxImage.Error);
             return false;
         }
