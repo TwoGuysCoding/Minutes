@@ -82,13 +82,13 @@ namespace Minutes
             base.OnExit(e);
         }
 
-        private void SetUpLogger()
+        private static void SetUpLogger()
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Debug()
                 .WriteTo.Console()
-                .WriteTo.File("logs/myapplog-.log", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("logs/minutes_applog-.log", rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
 
             Log.Information("Application Starting");
