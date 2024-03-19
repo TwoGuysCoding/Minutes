@@ -45,6 +45,7 @@ namespace Minutes.MVVM.ViewModels
             }
             try
             {
+                Message = "Creating account...";
                 using var httpClient = new HttpClient();
                 var jsonContent = new StringContent(
                     JsonConvert.SerializeObject(new { email = Mail, password = new System.Net.NetworkCredential(string.Empty, password).Password }),
@@ -84,6 +85,7 @@ namespace Minutes.MVVM.ViewModels
             }
             try
             { 
+                Message = "Logging in...";
                 using var httpClient = new HttpClient();
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(
                     new { email = Mail, password = new System.Net.NetworkCredential(string.Empty, password).Password }), Encoding.UTF8, "application/json");
