@@ -18,9 +18,11 @@ namespace Minutes.MVVM.ViewModels
         private string? _transcriptionStorage;
         private string? _recentTranscription;
         private string? _partialTranscription;
-        private string? _transcriptionBuffer;
+        private string? _boxText;
         private readonly ITranscriptionService _transcriptionService;
         private readonly ITimerService _timerService;
+
+        private const int _minCharCount = 100;
 
         public ObservableCollection<TranscriptionBoxViewModel> TranscriptionBoxes { get; set; } = [];
 
@@ -29,15 +31,6 @@ namespace Minutes.MVVM.ViewModels
             _transcriptionService = transcriptionService;
             _transcriptionService.TranscriptionTextChanged += (_, text) => ReceiveMessages(text);
             _timerService = timerService;
-            for (int i=0;i<99;i++)
-            {
-                TranscriptionBoxes.Add(new TranscriptionBoxViewModel
-                {
-                    Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\n",
-                    Time = "00:00:00"
-                });
-            }
-            
         }
 
         private void ReceiveMessages(string text)
@@ -58,7 +51,7 @@ namespace Minutes.MVVM.ViewModels
             {
                 case "partial":
                     _partialTranscription = jsonObject["text"];
-                    UpdateLastTranscriptionBox(_partialTranscription);
+                    UpdateLastTranscriptionBox(_boxText + _partialTranscription);
                     break;
                 case "final":
                     _recentTranscription = jsonObject["text"];
@@ -66,13 +59,18 @@ namespace Minutes.MVVM.ViewModels
                     _transcriptionStorage += _timerService.ElapsedTime.ToString(@"hh\:mm\:ss") + '\n';
                     _transcriptionStorage += _recentTranscription + '\n' + '\n';
                     _transcriptionService.AppendEnhancedTranscriptionText(_recentTranscription ?? throw new InvalidOperationException());
-                    UpdateLastTranscriptionBox(_recentTranscription, _timerService.ElapsedTime.ToString(@"hh\:mm\:ss"));
-                    Application.Current?.Dispatcher.Invoke(() => 
-                        TranscriptionBoxes.Add(new TranscriptionBoxViewModel
+                    _boxText += _recentTranscription + " ";
+                    UpdateLastTranscriptionBox(_boxText, _timerService.ElapsedTime.ToString(@"hh\:mm\:ss"));
+                    if (_boxText.Length > _minCharCount)
                     {
-                        Content = "",
-                        Time = _timerService.ElapsedTime.ToString(@"hh\:mm\:ss")
-                    }));
+                        Application.Current?.Dispatcher.Invoke(() =>
+                        TranscriptionBoxes.Add(new TranscriptionBoxViewModel
+                        {
+                            Content = "",
+                            Time = _timerService.ElapsedTime.ToString(@"hh\:mm\:ss")
+                        }));
+                        _boxText = "";
+                    }
                     break;
             }
             TranscriptionText = _transcriptionStorage + _partialTranscription;
